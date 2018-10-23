@@ -7,6 +7,7 @@ public class Player2Controller : MonoBehaviour
 
     public float velocity;
 
+    private Rigidbody mRigidbody;
     private float angularVelocity;
     private bool corner;
     private float totalAngle;
@@ -15,6 +16,7 @@ public class Player2Controller : MonoBehaviour
     private const string cornerTriggerTag = "CornerTrigger";
 
     private void Start() {
+        mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
         angularVelocity = velocity / (2 * raduis);
         totalAngle = 0;
@@ -23,7 +25,7 @@ public class Player2Controller : MonoBehaviour
 
     private void Update() {
         float inputHorizontal = Input.GetAxis("Horizontal2");
-        Vector3 pos = transform.position;
+        Vector3 pos = mRigidbody.position;
 
         if (!corner)        // Move the character in a straight line
         {
@@ -41,8 +43,8 @@ public class Player2Controller : MonoBehaviour
             pos.z = center.z + raduis * Mathf.Cos(totalAngle);
         }
 
-        transform.position = pos;
-        transform.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
+        mRigidbody.position = pos;
+        mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
 
     }
 

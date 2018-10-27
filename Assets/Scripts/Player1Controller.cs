@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player1Controller : MonoBehaviour
 {
 
+    public static bool gameStart = false;
+
     public float velocity;
 
     private Rigidbody mRigidbody;
@@ -15,6 +17,12 @@ public class Player1Controller : MonoBehaviour
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
 
+
+    public static void StartGame()
+    {
+        gameStart = true;
+    }
+
     private void Start() {
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
@@ -23,28 +31,35 @@ public class Player1Controller : MonoBehaviour
         corner = false;
     }
 
-    private void Update() {
-        float inputHorizontal = Input.GetAxis("Horizontal");
-        Vector3 pos = mRigidbody.position;
+    private void Update()
+    {
 
-        if (!corner)        // Move the character in a straight line
+        if (gameStart)
         {
-            Vector3 movement = transform.forward * velocity * inputHorizontal * Time.deltaTime;
-            pos += movement;
 
-            // Round depth to +radius or -raduis            
-            int sign = (int)Mathf.Round(pos.z / Mathf.Abs(pos.z));
-            pos.z = sign * raduis;
-        }
-        else            // Move the character in a circular motion
-        {
-            totalAngle += -inputHorizontal * angularVelocity * Time.deltaTime;
-            pos.x = center.x + raduis * Mathf.Sin(totalAngle);
-            pos.z = center.z + raduis * Mathf.Cos(totalAngle);
-        }
+            float inputHorizontal = Input.GetAxis("Horizontal");
+            Vector3 pos = mRigidbody.position;
 
-        mRigidbody.position = pos;
-        mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
+            if (!corner)        // Move the character in a straight line
+            {
+                Vector3 movement = transform.forward * velocity * inputHorizontal * Time.deltaTime;
+                pos += movement;
+
+                // Round depth to +radius or -raduis            
+                int sign = (int)Mathf.Round(pos.z / Mathf.Abs(pos.z));
+                pos.z = sign * raduis;
+            }
+            else            // Move the character in a circular motion
+            {
+                totalAngle += -inputHorizontal * angularVelocity * Time.deltaTime;
+                pos.x = center.x + raduis * Mathf.Sin(totalAngle);
+                pos.z = center.z + raduis * Mathf.Cos(totalAngle);
+            }
+
+            mRigidbody.position = pos;
+            mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
+
+        }
 
     }
 

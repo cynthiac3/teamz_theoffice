@@ -6,6 +6,8 @@ public class Player1Controller : MonoBehaviour
 {
 
     public float velocity;
+    public int player;
+
 
     private Rigidbody mRigidbody;
     private float angularVelocity;
@@ -14,18 +16,26 @@ public class Player1Controller : MonoBehaviour
     private Vector3 center;         // Center of rotation circle
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
+    private int currentFloor;
 
-    private void Start() {
+    private void Start()
+    {
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
         angularVelocity = velocity / (2 * raduis);
         totalAngle = 0;
         corner = false;
+        currentFloor = 1;
     }
 
-    private void Update() {
-        float inputHorizontal = Input.GetAxis("Horizontal");
+    private void Update()
+    {
+        float inputHorizontal = Input.GetAxis((player == 1) ? "Horizontal" : "Horizontal2");
+
+        elevatorDoorCheck();
+
         Vector3 pos = mRigidbody.position;
+
 
         if (!corner)        // Move the character in a straight line
         {
@@ -48,16 +58,21 @@ public class Player1Controller : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.tag.Equals(cornerTriggerTag))     // Entering a corner
         {
             corner = true;
             center = transform.position;
             center.z = 0;
         }
+
+
+
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
         if (other.tag.Equals(cornerTriggerTag))
         {                                           // Exiting a corner
 
@@ -71,6 +86,52 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
 
+        if (other.gameObject.name.Contains("Floor"))
+        {
+
+            int newFloor = int.Parse(other.gameObject.name.Split()[1]);
+            if (currentFloor != newFloor)
+            {
+                currentFloor = newFloor;
+                print(currentFloor);
+            }
+        }
+    }
+
+    private void elevatorDoorCheck()
+    {
+        if (player == 2)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (isInfrontOfElevator(mRigidbody.position))
+                    takeElevatorToLevel(currentFloor + 1);
+            }
+        }
+        else if (player == 1)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (isInfrontOfElevator(mRigidbody.position))
+                    takeElevatorToLevel(currentFloor + 1);
+            }
+        }
+    }
+
+    private void takeElevatorToLevel(int level)
+    {
+        GameObject floor = GameObject.Find("Floor " + level);
+        Vector3 pos = mRigidbody.position;
+        pos.y = floor.GetComponent<Rigidbody>().transform.position.y + 0.5f;
+        mRigidbody.position = pos;
+    }
+
+    private bool isInfrontOfElevator(Vector3 pos)
+    {
+        return (pos.x > -1 && pos.x < 1 && pos.z < 0);
+    }
 
 }

@@ -107,23 +107,23 @@ public class Player1Controller : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (isInfrontOfElevator(mRigidbody.position))
-                    takeElevatorToLevel(currentFloor + 1);
+                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor-1].state == GameManager.Elevator.State.OPEN)
+                    useElevator();
             }
         }
         else if (player == 1)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                if (isInfrontOfElevator(mRigidbody.position))
-                    takeElevatorToLevel(currentFloor + 1);
+                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor-1].state == GameManager.Elevator.State.OPEN)
+                    useElevator();
             }
         }
     }
 
-    private void takeElevatorToLevel(int level)
+    public void changeFLoorBy(int change)
     {
-        GameObject floor = GameObject.Find("Floor " + level);
+        GameObject floor = GameObject.Find("Floor " + (change + currentFloor));
         Vector3 pos = mRigidbody.position;
         pos.y = floor.GetComponent<Rigidbody>().transform.position.y + 0.5f;
         mRigidbody.position = pos;
@@ -133,5 +133,54 @@ public class Player1Controller : MonoBehaviour
     {
         return (pos.x > -1 && pos.x < 1 && pos.z < 0);
     }
+
+    public int getCurrentFloor()
+    {
+        return currentFloor;
+    }
+
+    private void useElevator(){
+        GameManager.elevators[currentFloor-1].gameObject.GetComponent<Light>().color = Color.red;
+        GameManager.e[currentFloor-1].state = GameManager.Elevator.State.CLOSED;
+        float random = Random.value;
+        int oldFloor = currentFloor;
+        int newFLoor = 0;
+        if(random < 0.5)
+        {
+            changeFLoorBy(1);
+            newFLoor = oldFloor + 1;
+            print("up 1 floor");
+        }
+        else if(random < 0.3)
+        {
+            if (currentFloor != 1)
+            {
+                changeFLoorBy(-1);
+                newFLoor = oldFloor - 1;
+            }
+            print("down 1 floor");
+        }
+        else{
+            Player1Controller otherPlayer;
+            int otherPlayerFloor;
+            if (player == 7)
+            {
+                otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
+                otherPlayerFloor = otherPlayer.currentFloor;
+                newFLoor = otherPlayerFloor;
+            }
+            else{
+                otherPlayer = GameObject.Find("Player").GetComponent<Player1Controller>();
+                otherPlayerFloor = otherPlayer.currentFloor;
+                newFLoor = otherPlayerFloor;
+            }
+            changeFLoorBy(otherPlayerFloor - currentFloor);
+            print("oponent floor");
+        }
+
+        GameManager.elevators[newFLoor-1].gameObject.GetComponent<Light>().color = Color.red;
+        GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
+    }
+
 
 }

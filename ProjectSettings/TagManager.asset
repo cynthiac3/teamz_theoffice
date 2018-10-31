@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CornerTrigger
+  - Fire
+  - Extinguisher
+  - Foam
   layers:
   - Default
   - TransparentFX

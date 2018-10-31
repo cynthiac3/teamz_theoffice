@@ -163,7 +163,7 @@ public class Player1Controller : MonoBehaviour
         else{
             Player1Controller otherPlayer;
             int otherPlayerFloor;
-            if (player == 7)
+            if (player == 1)
             {
                 otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
                 otherPlayerFloor = otherPlayer.currentFloor;

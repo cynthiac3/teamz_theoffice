@@ -15,6 +15,10 @@ public class Player1Controller : MonoBehaviour
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
 
+    // for animation() and jump()
+    public Animator anim;
+    public float jumpForce;
+
     private void Start() {
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
@@ -46,6 +50,12 @@ public class Player1Controller : MonoBehaviour
         mRigidbody.position = pos;
         mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
 
+        //jump when Button "Jump" is pressed
+        jump();
+
+        // set animations based on speed and if grounded
+        animations();
+
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -71,6 +81,31 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
+    void animations()
+    {
+        if (Input.GetButtonDown("Jump"))
+            anim.SetBool("IsGrounded", false);
+        else
+            anim.SetBool("IsGrounded", true);
 
+        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+
+    }
+
+    void jump()
+    {
+        //Vector3 pos = transform.position;
+       Vector3 pos = GetComponent<Rigidbody>().velocity; // using velocity has a smoother jump but it's buggy, not sure why
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
+            pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
+
+        }
+
+        GetComponent<Rigidbody>().velocity = pos;
+        //transform.position = pos;
+    }
 
 }

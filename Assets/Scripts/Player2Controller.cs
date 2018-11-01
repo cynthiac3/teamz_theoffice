@@ -15,7 +15,12 @@ public class Player2Controller : MonoBehaviour
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
 
-    private void Start() {
+    // for animation() and jump()
+    public Animator anim;
+    public float jumpForce;
+
+    private void Start()
+    {
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
         angularVelocity = velocity / (2 * raduis);
@@ -23,7 +28,8 @@ public class Player2Controller : MonoBehaviour
         corner = false;
     }
 
-    private void Update() {
+    private void Update()
+    {
         float inputHorizontal = Input.GetAxis("Horizontal2");
         Vector3 pos = mRigidbody.position;
 
@@ -46,9 +52,15 @@ public class Player2Controller : MonoBehaviour
         mRigidbody.position = pos;
         mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
 
+        //jump when Button "Jump" is pressed
+        jump();
+
+        // set animations based on speed and if grounded
+        animations();
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.tag.Equals(cornerTriggerTag))     // Entering a corner
         {
             corner = true;
@@ -57,7 +69,8 @@ public class Player2Controller : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
         if (other.tag.Equals(cornerTriggerTag))
         {                                           // Exiting a corner
 
@@ -71,6 +84,31 @@ public class Player2Controller : MonoBehaviour
         }
     }
 
+    void animations()
+    {
+        if (Input.GetButtonDown("Jump2"))
+            anim.SetBool("IsGrounded", false);
+        else
+            anim.SetBool("IsGrounded", true);
 
+        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal2")));
 
+    }
+
+    void jump()
+    {
+        //Vector3 pos = transform.position;
+        Vector3 pos = GetComponent<Rigidbody>().velocity; // using velocity has a smoother jump but it's buggy, not sure why
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
+            pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
+
+        }
+
+        GetComponent<Rigidbody>().velocity = pos;
+        //transform.position = pos;
+
+    }
 }

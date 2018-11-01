@@ -33,6 +33,11 @@ public class Player1Controller : MonoBehaviour
     private void Start()
     {
 
+    // for animation() and jump()
+    public Animator anim;
+    public float jumpForce;
+
+    private void Start() {
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
         angularVelocity = velocity / (2 * raduis);
@@ -87,6 +92,12 @@ public class Player1Controller : MonoBehaviour
 
         }
 
+        //jump when Button "Jump" is pressed
+        jump();
+
+        // set animations based on speed and if grounded
+        animations();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -133,6 +144,29 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
+
+    void animations()
+    {
+        if (Input.GetButtonDown("Jump"))
+            anim.SetBool("IsGrounded", false);
+        else
+            anim.SetBool("IsGrounded", true);
+
+        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+
+    }
+
+    void jump()
+    {
+        //Vector3 pos = transform.position;
+       Vector3 pos = GetComponent<Rigidbody>().velocity; // using velocity has a smoother jump but it's buggy, not sure why
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
+            pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
+
+        }
     private void OnCollisionEnter(Collision other)
     {
 
@@ -229,5 +263,8 @@ public class Player1Controller : MonoBehaviour
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
     }
 
+        GetComponent<Rigidbody>().velocity = pos;
+        //transform.position = pos;
+    }
 
 }

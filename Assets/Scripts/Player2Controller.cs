@@ -10,10 +10,14 @@ public class Player2Controller : MonoBehaviour
     private Rigidbody mRigidbody;
     private float angularVelocity;
     private bool corner;
+    private bool atAlarm;
     private float totalAngle;
     private Vector3 center;         // Center of rotation circle
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
+    private const string alarmTag = "FireAlarm";
+    private const string lvlTag = "lvlTag";
+    private int currentLvl;
 
     private void Start() {
         mRigidbody = GetComponent<Rigidbody>();
@@ -21,6 +25,8 @@ public class Player2Controller : MonoBehaviour
         angularVelocity = velocity / (2 * raduis);
         totalAngle = 0;
         corner = false;
+        atAlarm = false;
+        currentLvl = 1;
     }
 
     private void Update() {
@@ -55,6 +61,28 @@ public class Player2Controller : MonoBehaviour
             center = transform.position;
             center.z = 0;
         }
+        //added other possible collisions
+        //collision to allow interaction with a fire alarm
+        if (other.tag.Equals(alarmTag))
+        {
+            atAlarm = true;
+        }
+        //collision to track which floor a player is on
+        if (other.tag.Equals(lvlTag))
+        {
+            string lvlId = other.GetComponent<Transform>().name;
+            string lvlTrackers;
+            for (int i = 1; i < 11; i++)
+            {
+                lvlTrackers = "lvl";
+                if (lvlId == (lvlTrackers + i))
+                {
+                    currentLvl = i;
+                    //Debug.Log("P2's current lvl is " + currentLvl);
+                }
+
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -69,8 +97,20 @@ public class Player2Controller : MonoBehaviour
             totalAngle = k * Mathf.PI;
 
         }
+        if (other.tag.Equals(alarmTag))
+        {
+            atAlarm = false;
+        }
     }
 
+    //getters for use in "Sprinklers.cs"
+    public bool getAlarmStatus()
+    {
+        return atAlarm;
+    }
 
-
+    public int getLvl()
+    {
+        return currentLvl;
+    }
 }

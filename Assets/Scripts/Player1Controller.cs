@@ -18,6 +18,8 @@ public class Player1Controller : MonoBehaviour
     private Vector3 center;         // Center of rotation circle
     private float raduis;           // Radius of rotation circle
     private const string cornerTriggerTag = "CornerTrigger";
+    private const string fireTriggerTag = "Fire";
+    private const string extinguisherTriggerTag = "Extinguisher";
     private int currentFloor;
 
 
@@ -69,6 +71,20 @@ public class Player1Controller : MonoBehaviour
             mRigidbody.position = pos;
             mRigidbody.rotation = Quaternion.AngleAxis(totalAngle * Mathf.Rad2Deg - 90, Vector3.up);
 
+            // Activate fire extinguisher spray
+            if (transform.GetChild(1).gameObject.activeInHierarchy)
+            {
+                if (Input.GetKey(KeyCode.T))
+                {
+                    transform.GetChild(2).gameObject.SetActive(true);
+
+                }
+                else if (!Input.GetKey(KeyCode.T))
+                {
+                    transform.GetChild(2).gameObject.SetActive(false);
+                }
+            }
+
         }
 
     }
@@ -82,6 +98,22 @@ public class Player1Controller : MonoBehaviour
             center.z = 0;
         }
 
+        if (other.tag.Equals(fireTriggerTag))     // Touching a fire
+        {
+            // how much the character should be knocked back
+            var magnitude = 100;
+            // calculate force vector
+            var force = transform.position - other.transform.position;
+            // normalize force vector to get direction only and trim magnitude
+            force.Normalize();
+            mRigidbody.AddForce(force * magnitude);
+        }
+
+        if (other.tag.Equals(extinguisherTriggerTag))   // Touching an extinguisher
+        {
+            Destroy(other.gameObject);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
 
 
     }

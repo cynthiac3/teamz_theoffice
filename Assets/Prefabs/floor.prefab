@@ -35,9 +35,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4506005192969364}
   - component: {fileID: 108548697930466626}
+  - component: {fileID: 114702118388042204}
   m_Layer: 0
   m_Name: Point Light (1)
-  m_TagString: Untagged
+  m_TagString: elevator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,7 +427,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -453,3 +454,16 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114702118388042204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1183012371668846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28c2d038f8064d288761446a2e79f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blocked_time: 20
+  state: 0

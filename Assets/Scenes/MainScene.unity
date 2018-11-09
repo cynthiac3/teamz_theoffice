@@ -7201,13 +7201,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 847510694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60048b0e9c41419458af8046ae559da3, type: 3}
+  m_Script: {fileID: 11500000, guid: e05f71ae9e3946540a6dca5204fd50fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 7
   player: 2
-  currentFloor: 2
-  anim: {fileID: 2135714603}
+  currentFloor: 3
   jumpForce: 3.5
 --- !u!4 &847510701 stripped
 Transform:
@@ -7728,7 +7727,6 @@ MonoBehaviour:
   velocity: 7
   player: 1
   currentFloor: 0
-  anim: {fileID: 0}
   jumpForce: 0
 --- !u!4 &962139747 stripped
 Transform:
@@ -13309,6 +13307,24 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 95719832906209500, guid: 37a20f409bf6258498dd137e4a373ee1,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e5dac2d8e6769f245b3175f0b5709e36, type: 2}
+    - target: {fileID: 4652921008522198, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.07416269
+      objectReference: {fileID: 0}
+    - target: {fileID: 4652921008522198, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.07369821
+      objectReference: {fileID: 0}
+    - target: {fileID: 95719832906209500, guid: 37a20f409bf6258498dd137e4a373ee1,
+        type: 2}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: de6b89ad045414447900693de3ff0a90, type: 3}
     m_RemovedComponents:
     - {fileID: 114558343509773442, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
@@ -14160,7 +14176,6 @@ MonoBehaviour:
   velocity: 7
   player: 2
   currentFloor: 0
-  anim: {fileID: 0}
   jumpForce: 0
 --- !u!54 &1542808329
 Rigidbody:
@@ -15269,11 +15284,6 @@ Transform:
   m_Father: {fileID: 287109901}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!95 &2135714603 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95719832906209500, guid: 37a20f409bf6258498dd137e4a373ee1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1192445860}
 --- !u!1 &2141030218
 GameObject:
   m_ObjectHideFlags: 0

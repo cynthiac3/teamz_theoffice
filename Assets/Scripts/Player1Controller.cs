@@ -22,7 +22,7 @@ public class Player1Controller : MonoBehaviour
     public int currentFloor;
 
     // for animation() and jump()
-    public Animator anim;
+    private Animator anim;
     public float jumpForce;
 
     public static void StartGame()
@@ -145,8 +145,10 @@ public class Player1Controller : MonoBehaviour
         else
             anim.SetBool("IsGrounded", true);
 
-        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
-
+        if(player==1)
+            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        else
+            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal2")));
     }
 
     private void OnTriggerExit(Collider other)

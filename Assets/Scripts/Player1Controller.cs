@@ -19,6 +19,8 @@ public class Player1Controller : MonoBehaviour
     private const string cornerTriggerTag = "CornerTrigger";
     private const string fireTriggerTag = "Fire";
     private const string extinguisherTriggerTag = "Extinguisher";
+    private bool isUsingElevator;
+    private Vector3 newPosition;
     public int currentFloor;
 
     // for animation() and jump()
@@ -40,6 +42,7 @@ public class Player1Controller : MonoBehaviour
         corner = false;
         currentFloor = 1;
         anim = transform.GetChild(3).GetComponent<Animator>();
+        isUsingElevator = false;
     }
 
     private void Update()
@@ -89,6 +92,8 @@ public class Player1Controller : MonoBehaviour
 
             // set animations based on speed and if grounded
             animations();
+
+            
 
         }
 
@@ -185,16 +190,66 @@ public class Player1Controller : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor-1].state == GameManager.Elevator.State.OPEN)
+                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
+                {
                     useElevator();
+                    isUsingElevator = true;
+                    mRigidbody.useGravity = false;
+                    mRigidbody.detectCollisions = false;
+                }
+            }
+            if(isUsingElevator)
+            {
+
+                if (Mathf.Abs(mRigidbody.position.y - newPosition.y) > 0.1)
+                {
+                    if (mRigidbody.position.y - newPosition.y < 0)
+                        mRigidbody.position += new Vector3(0, 0.1f, 0);
+                    else
+                    {
+                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
+                    }
+
+                }
+                else
+                {
+                    isUsingElevator = false;
+                    mRigidbody.useGravity = true;
+                    mRigidbody.detectCollisions = true;
+                }
             }
         }
         else if (player == 1)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor-1].state == GameManager.Elevator.State.OPEN)
+                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
+                {
                     useElevator();
+                    isUsingElevator = true;
+                    mRigidbody.useGravity = false;
+                    mRigidbody.detectCollisions = false;
+
+                }
+            }
+            if (isUsingElevator)
+            {
+
+                if (Mathf.Abs(mRigidbody.position.y - newPosition.y) > 0.1)
+                {
+                    if(mRigidbody.position.y - newPosition.y < 0)
+                        mRigidbody.position += new Vector3(0, 0.1f, 0);
+                    else{
+                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
+                    }
+
+                }
+                else
+                {
+                    isUsingElevator = false;
+                    mRigidbody.useGravity = true;
+                    mRigidbody.detectCollisions = true;
+                }
             }
         }
     }
@@ -204,7 +259,8 @@ public class Player1Controller : MonoBehaviour
         GameObject floor = GameObject.Find("Floor " + (change + currentFloor));
         Vector3 pos = mRigidbody.position;
         pos.y = floor.GetComponent<Rigidbody>().transform.position.y + 0.5f;
-        mRigidbody.position = pos;
+        //mRigidbody.position = pos;
+        newPosition = pos;
     }
 
     private bool isInfrontOfElevator(Vector3 pos)
@@ -229,7 +285,7 @@ public class Player1Controller : MonoBehaviour
             newFLoor = oldFloor + 1;
             print("up 1 floor");
         }
-        else if(random < 0.3)
+        else if(random < 0.7)
         {
             if (currentFloor != 1)
             {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7201,13 +7201,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 847510694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60048b0e9c41419458af8046ae559da3, type: 3}
+  m_Script: {fileID: 11500000, guid: e05f71ae9e3946540a6dca5204fd50fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 7
   player: 2
-  currentFloor: 2
-  anim: {fileID: 2135714603}
+  currentFloor: 0
+  anim: {fileID: 0}
   jumpForce: 3.5
 --- !u!4 &847510701 stripped
 Transform:
@@ -15269,11 +15269,6 @@ Transform:
   m_Father: {fileID: 287109901}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!95 &2135714603 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95719832906209500, guid: 37a20f409bf6258498dd137e4a373ee1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1192445860}
 --- !u!1 &2141030218
 GameObject:
   m_ObjectHideFlags: 0

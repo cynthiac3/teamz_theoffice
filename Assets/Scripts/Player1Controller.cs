@@ -198,6 +198,7 @@ public class Player1Controller : MonoBehaviour
                     isUsingElevator = true;
                     mRigidbody.useGravity = false;
                     mRigidbody.detectCollisions = false;
+                    showPlayer(false);
                 }
             }
             if(isUsingElevator)
@@ -218,6 +219,7 @@ public class Player1Controller : MonoBehaviour
                     isUsingElevator = false;
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
+                    showPlayer(true);
                 }
             }
         }
@@ -231,6 +233,8 @@ public class Player1Controller : MonoBehaviour
                     isUsingElevator = true;
                     mRigidbody.useGravity = false;
                     mRigidbody.detectCollisions = false;
+                    GetComponent<Renderer>().enabled = false;
+                    showPlayer(false);
 
                 }
             }
@@ -239,9 +243,10 @@ public class Player1Controller : MonoBehaviour
 
                 if (Mathf.Abs(mRigidbody.position.y - newPosition.y) > 0.1)
                 {
-                    if(mRigidbody.position.y - newPosition.y < 0)
+                    if (mRigidbody.position.y - newPosition.y < 0)
                         mRigidbody.position += new Vector3(0, 0.1f, 0);
-                    else{
+                    else
+                    {
                         mRigidbody.position -= new Vector3(0, 0.1f, 0);
                     }
 
@@ -251,6 +256,7 @@ public class Player1Controller : MonoBehaviour
                     isUsingElevator = false;
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
+                    showPlayer(true);
                 }
             }
         }
@@ -318,5 +324,11 @@ public class Player1Controller : MonoBehaviour
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
     }
 
+    private void showPlayer(bool state) {
+        if(transform.GetChild(1).gameObject.activeInHierarchy == true) // hide fire extinguisher if active
+            transform.GetChild(1).GetComponent<Renderer>().enabled = state;
+        // Hide body
+        transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = state;
+    }
 
-}
+} // end of class

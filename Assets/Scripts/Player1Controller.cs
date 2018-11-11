@@ -23,6 +23,10 @@ public class Player1Controller : MonoBehaviour
     private Vector3 newPosition;
     public int currentFloor;
 
+    //for fire alarm "Trap"
+    private const string alarmTag = "FireAlarm";
+    private bool atAlarm;
+
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
@@ -43,6 +47,7 @@ public class Player1Controller : MonoBehaviour
         currentFloor = 1;
         anim = transform.GetChild(3).GetComponent<Animator>();
         isUsingElevator = false;
+        atAlarm = false;
     }
 
     private void Update()
@@ -125,6 +130,13 @@ public class Player1Controller : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(true);
         }
 
+        //collision to allow interaction with a fire alarm
+        if (other.tag.Equals(alarmTag))
+        {
+            atAlarm = true;
+            //triggeredAlarm = other.GetComponent<Transform>();
+        }
+
     }
 
     void jump()
@@ -168,6 +180,11 @@ public class Player1Controller : MonoBehaviour
             float k = Mathf.Round(totalAngle / (Mathf.PI));
             totalAngle = k * Mathf.PI;
 
+        }
+        //exits fire alarm collider zone
+        if (other.tag.Equals(alarmTag))
+        {
+            atAlarm = false;
         }
     }
 
@@ -318,5 +335,9 @@ public class Player1Controller : MonoBehaviour
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
     }
 
-
+    //getter for use in "Sprinklers.cs"
+    public bool getAlarmStatus()
+    {
+        return atAlarm;
+    }
 }

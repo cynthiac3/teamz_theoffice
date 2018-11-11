@@ -6,6 +6,11 @@ TagManager:
   tags:
   - CornerTrigger
   - Key
+  - Fire
+  - elevator
+  - Foam
+  - Extinguisher
+  - FireAlarm
   layers:
   - Default
   - TransparentFX

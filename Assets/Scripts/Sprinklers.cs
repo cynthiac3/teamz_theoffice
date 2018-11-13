@@ -50,7 +50,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklerArr[p2Lvl - 3].transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
             }
             //if statement for Prefab sprinkler sets
@@ -61,7 +62,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklerArr[p2Lvl - 3].transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
 
             }
@@ -73,7 +75,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklersOrg.transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
             }
             else
@@ -98,7 +101,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklerArr[p2Lvl - 3].transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
             }
             //if statement for Prefab sprinkler sets
@@ -109,7 +113,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklerArr[p1Lvl - 3].transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
 
             }
@@ -121,7 +126,8 @@ public class Sprinklers : MonoBehaviour {
                 for (int i = 0; i < 12; i++)
                 {
                     Transform sprinklerShower = sprinklersOrg.transform.GetChild(i);
-                    Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    GameObject shower = Instantiate(particleShower, sprinklerShower.position, Quaternion.Euler(-90, 0, 0));
+                    StartCoroutine(ShowerDestroyer(shower));
                 }
             }
             else
@@ -147,4 +153,11 @@ public class Sprinklers : MonoBehaviour {
         alarmCoolDown = false;
     }
 
+    //CoRoutine for destroying the particle object spawned at each sprinkler
+    public IEnumerator ShowerDestroyer(GameObject shower)
+    {
+        yield return new WaitForSeconds(15);
+        Destroy(shower);
+        
+    }
 }

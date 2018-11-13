@@ -11,6 +11,7 @@ TagManager:
   - Foam
   - Extinguisher
   - FireAlarm
+  - PowerGenerator
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - P1View
+  - P2View
   - 
   - 
   - 

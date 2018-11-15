@@ -12,6 +12,7 @@ TagManager:
   - Extinguisher
   - FireAlarm
   - PowerGenerator
+  - Rooftop
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,12 @@ public class Player1Controller : MonoBehaviour
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
+    float xPosition;
+
+    // For rooftop
+    bool isUsingRoofTopDoor;
+    private bool atRooftopDoor;
+    private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
 
     public static void StartGame()
     {
@@ -53,6 +59,7 @@ public class Player1Controller : MonoBehaviour
         isUsingElevator = false;
         atAlarm = false;
         atGenerator = false;
+        isUsingRoofTopDoor = false;
     }
 
     private void Update()
@@ -103,7 +110,38 @@ public class Player1Controller : MonoBehaviour
             // set animations based on speed and if grounded
             animations();
 
-            
+            if (atRooftopDoor) {
+                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+                {
+                    mRigidbody.useGravity = false;
+                    mRigidbody.detectCollisions = false;
+                    showPlayer(false);
+                    isUsingRoofTopDoor = true;
+                }
+            }
+
+            // Moving to rooftop
+            if (isUsingRoofTopDoor)
+            {
+
+                if (Mathf.Abs(mRigidbody.position.y - roofPosition.y) > 0.1)
+                {
+                    if (mRigidbody.position.y - roofPosition.y < 0)
+                        mRigidbody.position += new Vector3(0, 0.1f, 0);
+                    else
+                    {
+                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
+                    }
+
+                }
+                else
+                {
+                    isUsingRoofTopDoor = false;
+                    mRigidbody.useGravity = true;
+                    mRigidbody.detectCollisions = true;
+                    showPlayer(true);
+                }
+            }
 
         }
 
@@ -144,6 +182,11 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals(genTag))
         {
             atGenerator = true;
+        }
+        //collision to allow interaction with rooftop door
+        if (other.tag.Equals("Rooftop"))
+        {
+            atRooftopDoor = true;
         }
 
     }
@@ -199,6 +242,11 @@ public class Player1Controller : MonoBehaviour
         {
             atGenerator = false;
         }
+        //collision to allow interaction with rooftop door
+        if (other.tag.Equals("Rooftop"))
+        {
+            atRooftopDoor = false;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -214,6 +262,7 @@ public class Player1Controller : MonoBehaviour
                 print(currentFloor);
             }
         }
+
     }
 
     private void elevatorDoorCheck()

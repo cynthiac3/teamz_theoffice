@@ -27,6 +27,10 @@ public class Player1Controller : MonoBehaviour
     private const string alarmTag = "FireAlarm";
     private bool atAlarm;
 
+    //for power generator "Trap"
+    private const string genTag = "PowerGenerator";
+    private bool atGenerator;
+
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
@@ -48,6 +52,7 @@ public class Player1Controller : MonoBehaviour
         anim = transform.GetChild(3).GetComponent<Animator>();
         isUsingElevator = false;
         atAlarm = false;
+        atGenerator = false;
     }
 
     private void Update()
@@ -134,7 +139,11 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals(alarmTag))
         {
             atAlarm = true;
-            //triggeredAlarm = other.GetComponent<Transform>();
+        }
+        //collision to allow interaction with a power generator
+        if (other.tag.Equals(genTag))
+        {
+            atGenerator = true;
         }
 
     }
@@ -185,6 +194,10 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals(alarmTag))
         {
             atAlarm = false;
+        }
+        if (other.tag.Equals(genTag))
+        {
+            atGenerator = false;
         }
     }
 
@@ -345,6 +358,11 @@ public class Player1Controller : MonoBehaviour
     public bool getAlarmStatus()
     {
         return atAlarm;
+    }
+    //getter for use in "PowerGenerators.cs"
+    public bool getGenStatus()
+    {
+        return atGenerator;
     }
 
     private void showPlayer(bool state) {

@@ -41,6 +41,49 @@ public class Player1Controller : MonoBehaviour
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
 
+
+    // Healthbar
+    public GameObject Player;
+    public SimpleHealthBar healthBar;
+    public Vector3 startLocation;
+    private int health=100;
+
+    public GameObject Player2;
+    public SimpleHealthBar healthBar2;
+    private int health2 = 100;
+
+
+    public void Player1TakeDamage(int damage)
+    {
+        health -= damage;
+        healthBar.UpdateBar(health, 100);
+
+        if (health == 0)
+        {
+            // play Death animation
+            Player.transform.position = startLocation;
+            health = 100;
+            healthBar.UpdateBar(health, 100);
+        }
+
+    }
+
+    public void Player2TakeDamage(int damage)
+    {
+        health2 -= damage;
+        healthBar2.UpdateBar(health2, 100);
+
+        if (health2 == 0)
+        {
+            // play Death animation
+            Player2.transform.position = startLocation;
+            health2 = 100;
+            healthBar2.UpdateBar(health2, 100);
+        }
+
+    }
+
+
     public static void StartGame()
     {
         gameStart = true;
@@ -200,6 +243,8 @@ public class Player1Controller : MonoBehaviour
         {
             //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
             pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
+
+            Player2TakeDamage(30);
 
         }
 

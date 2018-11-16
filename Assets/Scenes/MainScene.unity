@@ -20591,7 +20591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -32662,7 +32662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -32709,6 +32709,8 @@ MonoBehaviour:
   startLocation: {x: 0, y: 0, z: 0}
   Player2: {fileID: 847510694}
   healthBar2: {fileID: 1628593059}
+  Player1Key: {fileID: 0}
+  Player2Key: {fileID: 339336489}
 --- !u!4 &847510701 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4490806685890016, guid: 37a20f409bf6258498dd137e4a373ee1,
@@ -33047,6 +33049,16 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 2033006548}
+    - target: {fileID: 114940430580756916, guid: 1324b838bc62fce41992f61e3bc1cc36,
+        type: 2}
+      propertyPath: Player1Key
+      value: 
+      objectReference: {fileID: 840829209}
+    - target: {fileID: 114940430580756916, guid: 1324b838bc62fce41992f61e3bc1cc36,
+        type: 2}
+      propertyPath: Player2Key
+      value: 
+      objectReference: {fileID: 339336489}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
   m_IsPrefabAsset: 0
@@ -33507,6 +33519,8 @@ MonoBehaviour:
   startLocation: {x: 0, y: 0, z: 0}
   Player2: {fileID: 0}
   healthBar2: {fileID: 0}
+  Player1Key: {fileID: 0}
+  Player2Key: {fileID: 0}
 --- !u!1 &958331822
 GameObject:
   m_ObjectHideFlags: 0
@@ -50837,6 +50851,8 @@ MonoBehaviour:
   startLocation: {x: 0, y: 0, z: 0}
   Player2: {fileID: 0}
   healthBar2: {fileID: 0}
+  Player1Key: {fileID: 0}
+  Player2Key: {fileID: 0}
 --- !u!54 &1542808329
 Rigidbody:
   m_ObjectHideFlags: 0

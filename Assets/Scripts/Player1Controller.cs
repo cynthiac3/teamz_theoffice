@@ -52,6 +52,21 @@ public class Player1Controller : MonoBehaviour
     public SimpleHealthBar healthBar2;
     private int health2 = 100;
 
+    //keys
+    public GameObject Player1Key;
+    public GameObject Player2Key;
+
+    public void Player1HasKey(bool i)
+    {
+        if (i) Player1Key.active = true;
+        if (!i) Player1Key.active = false;
+    }
+
+    public void Player2HasKey(bool i)
+    {
+        if (i) Player2Key.active = true;
+        if (!i) Player2Key.active = false;
+    }
 
     public void Player1TakeDamage(int damage)
     {
@@ -243,8 +258,6 @@ public class Player1Controller : MonoBehaviour
         {
             //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
             pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
-
-            Player2TakeDamage(30);
 
         }
 

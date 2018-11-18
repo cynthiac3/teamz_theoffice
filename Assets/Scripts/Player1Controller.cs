@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -56,6 +57,9 @@ public class Player1Controller : MonoBehaviour
     public GameObject Player1Key;
     public GameObject Player2Key;
 
+    //Player Floor
+    public Text PlayerFloor;
+
     public void Player1HasKey(bool i)
     {
         if (i) Player1Key.active = true;
@@ -79,6 +83,7 @@ public class Player1Controller : MonoBehaviour
             Player.transform.position = startLocation;
             health = 100;
             healthBar.UpdateBar(health, 100);
+            Player1HasKey(false); //Lose Key on Death
         }
 
     }
@@ -94,6 +99,7 @@ public class Player1Controller : MonoBehaviour
             Player2.transform.position = startLocation;
             health2 = 100;
             healthBar2.UpdateBar(health2, 100);
+            Player2HasKey(false); //Lose Key on Death
         }
 
     }
@@ -122,6 +128,9 @@ public class Player1Controller : MonoBehaviour
 
     private void Update()
     {
+
+        PlayerFloor.text = "Floor: " + currentFloor;
+
         if (gameStart)
         {
             float inputHorizontal = Input.GetAxis((player == 1) ? "Horizontal" : "Horizontal2");

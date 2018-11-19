@@ -13,6 +13,7 @@ TagManager:
   - FireAlarm
   - PowerGenerator
   - Rooftop
+  - WaterCooler
   layers:
   - Default
   - TransparentFX

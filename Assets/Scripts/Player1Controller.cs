@@ -31,6 +31,9 @@ public class Player1Controller : MonoBehaviour
     private const string genTag = "PowerGenerator";
     private bool atGenerator;
 
+    //for water cooler "Trap"
+    private bool stunned;
+
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
@@ -59,12 +62,14 @@ public class Player1Controller : MonoBehaviour
         isUsingElevator = false;
         atAlarm = false;
         atGenerator = false;
+        stunned = false;
         isUsingRoofTopDoor = false;
+        
     }
 
     private void Update()
     {
-        if (gameStart)
+        if (gameStart && !stunned)
         {
             float inputHorizontal = Input.GetAxis((player == 1) ? "Horizontal" : "Horizontal2");
             elevatorDoorCheck();
@@ -183,6 +188,7 @@ public class Player1Controller : MonoBehaviour
         {
             atGenerator = true;
         }
+        
         //collision to allow interaction with rooftop door
         if (other.tag.Equals("Rooftop"))
         {
@@ -242,6 +248,7 @@ public class Player1Controller : MonoBehaviour
         {
             atGenerator = false;
         }
+        
         //collision to allow interaction with rooftop door
         if (other.tag.Equals("Rooftop"))
         {
@@ -413,7 +420,11 @@ public class Player1Controller : MonoBehaviour
     {
         return atGenerator;
     }
-
+    //setter for use in "WaterCoolerRigging.cs"
+    public void setStun(bool status)
+    {
+        stunned = status;
+    }
     private void showPlayer(bool state) {
         if(transform.GetChild(1).gameObject.activeInHierarchy == true) // hide fire extinguisher if active
             transform.GetChild(1).GetComponent<Renderer>().enabled = state;

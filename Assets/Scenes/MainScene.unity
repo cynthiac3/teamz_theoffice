@@ -20618,7 +20618,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4658339786212846, guid: 8e25f4d52c3ddc74eadd573033821cff, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e25f4d52c3ddc74eadd573033821cff, type: 2}
@@ -20669,7 +20669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &412768861
 GameObject:
@@ -32666,6 +32666,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &920585685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1553835033866734, guid: a691129152cd40342adf3857d2110190,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 920585687}
+  - component: {fileID: 920585686}
+  m_Layer: 0
+  m_Name: WaterCoolers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &920585686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 920585685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654ac31ec8a1b394fb9ff8bdde4b0401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolerSet:
+  - {fileID: 1881336366182038, guid: a691129152cd40342adf3857d2110190, type: 2}
+  - {fileID: 1288758202337386, guid: a691129152cd40342adf3857d2110190, type: 2}
+  - {fileID: 1763978421187854, guid: a691129152cd40342adf3857d2110190, type: 2}
+--- !u!4 &920585687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4729520315729170, guid: a691129152cd40342adf3857d2110190,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 920585685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &920939634
 Prefab:
   m_ObjectHideFlags: 0
@@ -32736,6 +32782,11 @@ Prefab:
         type: 2}
       propertyPath: m_CullingMask.m_Bits
       value: 823
+      objectReference: {fileID: 0}
+    - target: {fileID: 81079960999399578, guid: 1324b838bc62fce41992f61e3bc1cc36,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
@@ -38075,7 +38126,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -38634,7 +38685,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -44281,7 +44332,7 @@ Transform:
   - {fileID: 1598809494}
   - {fileID: 441838127}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1243846188 stripped
 Transform:
@@ -50123,7 +50174,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.08
+      value: 2.073
       objectReference: {fileID: 0}
     - target: {fileID: 4403551499296740, guid: 8923669eae1f46246b0e9f21fd24cda4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -61657,7 +61708,7 @@ Transform:
   - {fileID: 1546789746}
   - {fileID: 456284912}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1981294057 stripped
 Transform:

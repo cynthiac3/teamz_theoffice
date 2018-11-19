@@ -11,6 +11,7 @@ TagManager:
   - Foam
   - Extinguisher
   - FireAlarm
+  - floor
   layers:
   - Default
   - TransparentFX

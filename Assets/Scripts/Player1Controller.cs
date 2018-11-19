@@ -8,7 +8,7 @@ public class Player1Controller : MonoBehaviour
     public static bool gameStart = false;
 
     public float velocity;
-    public int player;
+    public int playerNum;
 
     private Rigidbody mRigidbody;
     private float angularVelocity;
@@ -30,6 +30,7 @@ public class Player1Controller : MonoBehaviour
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
+    bool grounded;
 
     public static void StartGame()
     {
@@ -54,7 +55,7 @@ public class Player1Controller : MonoBehaviour
     {
         if (gameStart)
         {
-            float inputHorizontal = Input.GetAxis((player == 1) ? "Horizontal" : "Horizontal2");
+            float inputHorizontal = Input.GetAxis("Horizontal" + playerNum);//Input.GetAxis((player == 1) ? "Horizontal" : "Horizontal2")
             elevatorDoorCheck();
             
             Vector3 pos = mRigidbody.position;
@@ -92,8 +93,9 @@ public class Player1Controller : MonoBehaviour
                 }
             }
 
-            //jump when Button "Jump" is pressed
-            jump();
+            //jump when Button "Jump" is pressed and player is grounded
+            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded())
+                jump();
 
             // set animations based on speed and if grounded
             animations();
@@ -139,33 +141,47 @@ public class Player1Controller : MonoBehaviour
 
     }
 
+    bool isGrounded()
+    {
+        //check if grounded
+        RaycastHit hitVar = new RaycastHit();
+        bool hitRay = Physics.SphereCast(transform.position - new Vector3(0, 2.05f, 0), 0.1f, -transform.up, out hitVar);//position, radius, direction, hit info
+        //Debug.Log(hitVar.distance + " above surface");
+        if (hitVar.distance > 0.1f)
+            grounded = false;
+        else
+            grounded = true;
+
+        return grounded;
+    }
+
     void jump()
     {
-        //Vector3 pos = transform.position;
-        Vector3 pos = GetComponent<Rigidbody>().velocity; // using velocity has a smoother jump but it's buggy, not sure why
 
-        if (Input.GetButtonDown("Jump"))
-        {
+            //Vector3 pos = transform.position;
+            Vector3 pos = GetComponent<Rigidbody>().velocity; // using velocity has a smoother jump but it's buggy, not sure why
+
+
             //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
             pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
 
-        }
+            GetComponent<Rigidbody>().velocity = pos;
+            //transform.position = pos;
+        
 
-        GetComponent<Rigidbody>().velocity = pos;
-        //transform.position = pos;
     }
 
     void animations()
     {
-        if (Input.GetButtonDown("Jump"))
-            anim.SetBool("IsGrounded", false);
-        else
+        if (isGrounded())
             anim.SetBool("IsGrounded", true);
-
-        if(player==1)
-            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         else
-            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal2")));
+            anim.SetBool("IsGrounded", false);
+
+      //  if(player==1)
+            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNum)));
+//else
+        //    anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal2")));
     }
 
     private void OnTriggerExit(Collider other)
@@ -205,7 +221,7 @@ public class Player1Controller : MonoBehaviour
 
     private void elevatorDoorCheck()
     {
-        if (player == 2)
+        if (playerNum == 2)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -240,7 +256,7 @@ public class Player1Controller : MonoBehaviour
                 }
             }
         }
-        else if (player == 1)
+        else if (playerNum == 1)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -322,7 +338,7 @@ public class Player1Controller : MonoBehaviour
         else{
             Player1Controller otherPlayer;
             int otherPlayerFloor;
-            if (player == 1)
+            if (playerNum == 1)
             {
                 otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
                 otherPlayerFloor = otherPlayer.currentFloor;

@@ -23,23 +23,9 @@ public class Player1Controller : MonoBehaviour
     private Vector3 newPosition;
     public int currentFloor;
 
-    //for fire alarm "Trap"
-    private const string alarmTag = "FireAlarm";
-    private bool atAlarm;
-
-    //for power generator "Trap"
-    private const string genTag = "PowerGenerator";
-    private bool atGenerator;
-
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
-    float xPosition;
-
-    // For rooftop
-    bool isUsingRoofTopDoor;
-    private bool atRooftopDoor;
-    private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
 
     public static void StartGame()
     {
@@ -57,9 +43,6 @@ public class Player1Controller : MonoBehaviour
         currentFloor = 1;
         anim = transform.GetChild(3).GetComponent<Animator>();
         isUsingElevator = false;
-        atAlarm = false;
-        atGenerator = false;
-        isUsingRoofTopDoor = false;
     }
 
     private void Update()
@@ -110,38 +93,7 @@ public class Player1Controller : MonoBehaviour
             // set animations based on speed and if grounded
             animations();
 
-            if (atRooftopDoor) {
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                {
-                    mRigidbody.useGravity = false;
-                    mRigidbody.detectCollisions = false;
-                    showPlayer(false);
-                    isUsingRoofTopDoor = true;
-                }
-            }
-
-            // Moving to rooftop
-            if (isUsingRoofTopDoor)
-            {
-
-                if (Mathf.Abs(mRigidbody.position.y - roofPosition.y) > 0.1)
-                {
-                    if (mRigidbody.position.y - roofPosition.y < 0)
-                        mRigidbody.position += new Vector3(0, 0.1f, 0);
-                    else
-                    {
-                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
-                    }
-
-                }
-                else
-                {
-                    isUsingRoofTopDoor = false;
-                    mRigidbody.useGravity = true;
-                    mRigidbody.detectCollisions = true;
-                    showPlayer(true);
-                }
-            }
+            
 
         }
 
@@ -171,22 +123,6 @@ public class Player1Controller : MonoBehaviour
         {
             Destroy(other.gameObject);
             transform.GetChild(1).gameObject.SetActive(true);
-        }
-
-        //collision to allow interaction with a fire alarm
-        if (other.tag.Equals(alarmTag))
-        {
-            atAlarm = true;
-        }
-        //collision to allow interaction with a power generator
-        if (other.tag.Equals(genTag))
-        {
-            atGenerator = true;
-        }
-        //collision to allow interaction with rooftop door
-        if (other.tag.Equals("Rooftop"))
-        {
-            atRooftopDoor = true;
         }
 
     }
@@ -233,20 +169,6 @@ public class Player1Controller : MonoBehaviour
             totalAngle = k * Mathf.PI;
 
         }
-        //exits fire alarm collider zone
-        if (other.tag.Equals(alarmTag))
-        {
-            atAlarm = false;
-        }
-        if (other.tag.Equals(genTag))
-        {
-            atGenerator = false;
-        }
-        //collision to allow interaction with rooftop door
-        if (other.tag.Equals("Rooftop"))
-        {
-            atRooftopDoor = false;
-        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -262,7 +184,6 @@ public class Player1Controller : MonoBehaviour
                 print(currentFloor);
             }
         }
-
     }
 
     private void elevatorDoorCheck()
@@ -403,17 +324,6 @@ public class Player1Controller : MonoBehaviour
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
     }
 
-    //getter for use in "Sprinklers.cs"
-    public bool getAlarmStatus()
-    {
-        return atAlarm;
-    }
-    //getter for use in "PowerGenerators.cs"
-    public bool getGenStatus()
-    {
-        return atGenerator;
-    }
-
     private void showPlayer(bool state) {
         if(transform.GetChild(1).gameObject.activeInHierarchy == true) // hide fire extinguisher if active
             transform.GetChild(1).GetComponent<Renderer>().enabled = state;
@@ -422,4 +332,3 @@ public class Player1Controller : MonoBehaviour
     }
 
 } // end of class
-

@@ -6,6 +6,13 @@ TagManager:
   tags:
   - CornerTrigger
   - Key
+  - Fire
+  - elevator
+  - Foam
+  - Extinguisher
+  - FireAlarm
+  - PowerGenerator
+  - Rooftop
   layers:
   - Default
   - TransparentFX
@@ -16,8 +23,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - P1View
+  - P2View
   - 
   - 
   - 

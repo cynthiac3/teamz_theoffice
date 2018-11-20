@@ -4,13 +4,14 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: brick wall
   m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -35,11 +36,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 4.68, y: 0.46}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 08d3954bea4932b41953d1b6670d5077, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 4.68, y: 0.46}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}

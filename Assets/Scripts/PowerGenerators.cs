@@ -8,6 +8,9 @@ public class PowerGenerators : MonoBehaviour {
     public GameObject blindParticles;
     public GameObject cam1;
     public GameObject cam2;
+    public GameObject useCircle;
+    private GameObject[] circle = new GameObject[5];
+    private GameObject[] newGenerator = new GameObject[5];
     private Player1Controller p1Script;
     private Player1Controller p2Script;
     private bool genCoolDown;
@@ -21,8 +24,9 @@ public class PowerGenerators : MonoBehaviour {
         for (int i = 0; i < 5; i++)
         {
             
-            GameObject newGenerator = Instantiate(generatorSet[genVariant], transform);
-            newGenerator.transform.position += new Vector3(0, yDisplacement, 0);
+            newGenerator[i] = Instantiate(generatorSet[genVariant], transform);
+            newGenerator[i].transform.position += new Vector3(0, yDisplacement, 0);
+            circle[i] = Instantiate(useCircle, newGenerator[i].transform.position + new Vector3(0, -0.25f, 0), Quaternion.Euler(-90, 0, 0));
             yDisplacement += 1.8f;
             if (genVariant == 0)
             {
@@ -49,6 +53,11 @@ public class PowerGenerators : MonoBehaviour {
             genCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();
+            for(int i = 0; i < 5; i++)
+            {
+                Destroy(circle[i]);
+            }
+
             //In the event that both players are on the same floor when switch is pulled
             if (p1Lvl == p2Lvl)
             {
@@ -74,6 +83,10 @@ public class PowerGenerators : MonoBehaviour {
             genCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();
+            for (int i = 0; i < 5; i++)
+            {
+                Destroy(circle[i]);
+            }
             //In the event that both players are on the same floor when switch is pulled
             if (p1Lvl == p2Lvl)
             {
@@ -99,6 +112,11 @@ public class PowerGenerators : MonoBehaviour {
     {
         yield return new WaitForSeconds(15);
         Destroy(blind);
+        yield return new WaitForSeconds(5);
         genCoolDown = false;
+        for (int i = 0; i < 5; i++)
+        {
+            circle[i] = Instantiate(useCircle, newGenerator[i].transform.position + new Vector3(0, -0.25f, 0), Quaternion.Euler(-90, 0, 0));
+        }
     }
 }

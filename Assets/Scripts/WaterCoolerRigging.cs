@@ -10,6 +10,8 @@ public class WaterCoolerRigging : MonoBehaviour {
     private bool atWater;
     public GameObject stunParticles;
     public GameObject waterStream;
+    public GameObject usableCircle;
+    private GameObject circle;
     private Player1Controller p1Script;
     private Player1Controller p2Script;
 
@@ -20,10 +22,7 @@ public class WaterCoolerRigging : MonoBehaviour {
         active = false;
         coolDown = false;
         atWater = false;
-        GameObject p1 = GameObject.Find("Player");
-        p1Script = p1.GetComponent<Player1Controller>();
-        GameObject p2 = GameObject.Find("Player2");
-        p2Script = p2.GetComponent<Player1Controller>();
+        circle = Instantiate(usableCircle, transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90,0,0));
     }
 	
 	// Update is called once per frame
@@ -71,7 +70,11 @@ public class WaterCoolerRigging : MonoBehaviour {
     public IEnumerator TrapIsSet()
     {
         active = true;
-        yield return new WaitForSeconds(60);
+        yield return new WaitForSeconds(30);
+        if(!shaking)
+        {
+            circle = Instantiate(usableCircle, transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
+        }
         coolDown = false;
         active = false;
         shaking = false;
@@ -81,11 +84,11 @@ public class WaterCoolerRigging : MonoBehaviour {
     public IEnumerator DestroyEffects(Player1Controller pscript, GameObject stun, GameObject water)
     {
         yield return new WaitForSeconds(0.075f);
+        Destroy(circle);
         pscript.setStun(true);
         shaking = false;
         yield return new WaitForSeconds(10);
         pscript.setStun(false);
-        coolDown = false;
         Destroy(stun);
         Destroy(water);
     }

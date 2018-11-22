@@ -70,7 +70,7 @@ public class WaterCoolerRigging : MonoBehaviour {
     public IEnumerator TrapIsSet()
     {
         active = true;
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(45);
         if(!shaking)
         {
             circle = Instantiate(usableCircle, transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));

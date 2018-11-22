@@ -258,11 +258,10 @@ public class Player1Controller : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-
-        if (other.gameObject.name.Contains("Floor"))
+        if (other.transform.parent.gameObject.name.Contains("Floor"))
         {
 
-            int newFloor = int.Parse(other.gameObject.name.Split()[1]);
+            int newFloor = int.Parse(other.transform.parent.gameObject.name.Split()[1]);
             if (currentFloor != newFloor)
             {
                 currentFloor = newFloor;
@@ -352,7 +351,7 @@ public class Player1Controller : MonoBehaviour
     {
         GameObject floor = GameObject.Find("Floor " + (change + currentFloor));
         Vector3 pos = mRigidbody.position;
-        pos.y = floor.GetComponent<Rigidbody>().transform.position.y + 0.5f;
+        pos.y = floor.transform.position.y + 0.5f;
         //mRigidbody.position = pos;
         newPosition = pos;
     }

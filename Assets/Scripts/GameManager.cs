@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour {
         elevators = GameObject.FindGameObjectsWithTag("elevator");
         e = new Elevator[elevators.Length];
 
+
         for (int i = 0; i < elevators.Length; ++i)
         {
-            elevators[i] = GameObject.Find("Floor " + (i + 1)).transform.GetChild(0).GetChild(1).gameObject;
+            elevators[i] = GameObject.Find("Floor " + (i + 1)).transform.GetChild(6).GetChild(1).gameObject;
             elevators[i].gameObject.GetComponent<Light>().color = Color.green;
             e[i] = new Elevator();
         }

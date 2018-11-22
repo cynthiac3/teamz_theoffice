@@ -160,4 +160,10 @@ public class Sprinklers : MonoBehaviour {
         Destroy(shower);
         
     }
+
+    //getter for use in "FireAlarms.cs"
+    public bool getCD()
+    {
+        return alarmCoolDown;
+    }
 }

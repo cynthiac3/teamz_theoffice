@@ -315,6 +315,8 @@ MonoBehaviour:
     type: 2}
   waterStream: {fileID: 1423539393314292, guid: 93e2b57557b761b4ba1d256d0fd45b73,
     type: 2}
+  usableCircle: {fileID: 1329259081240934, guid: 8f4a92a30a58c24498f9107db51cf12b,
+    type: 2}
 --- !u!114 &114804498131024526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +332,8 @@ MonoBehaviour:
     type: 2}
   waterStream: {fileID: 1423539393314292, guid: 93e2b57557b761b4ba1d256d0fd45b73,
     type: 2}
+  usableCircle: {fileID: 1329259081240934, guid: 8f4a92a30a58c24498f9107db51cf12b,
+    type: 2}
 --- !u!114 &114882628570484520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -344,4 +348,6 @@ MonoBehaviour:
   stunParticles: {fileID: 1426112662528094, guid: a2a33e8ac21afae43bf7081fe350762a,
     type: 2}
   waterStream: {fileID: 1423539393314292, guid: 93e2b57557b761b4ba1d256d0fd45b73,
+    type: 2}
+  usableCircle: {fileID: 1329259081240934, guid: 8f4a92a30a58c24498f9107db51cf12b,
     type: 2}

@@ -59,7 +59,7 @@ public class Player1Controller : MonoBehaviour
         totalAngle = 0;
         corner = false;
         currentFloor = 1;
-        anim = transform.GetChild(3).GetComponent<Animator>();
+        anim = transform.GetChild(5).GetComponent<Animator>();
         isUsingElevator = false;
         atAlarm = false;
         atGenerator = false;
@@ -283,9 +283,8 @@ public class Player1Controller : MonoBehaviour
 
     private void elevatorDoorCheck()
     {
-        if (playerNum == 2)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+
+            if (Input.GetButtonDown("Elevator" + playerNum))
             {
                 if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
                 {
@@ -317,44 +316,8 @@ public class Player1Controller : MonoBehaviour
                     showPlayer(true);
                 }
             }
-        }
-        else if (playerNum == 1)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
-                {
-                    useElevator();
-                    isUsingElevator = true;
-                    mRigidbody.useGravity = false;
-                    mRigidbody.detectCollisions = false;
-                    GetComponent<Renderer>().enabled = false;
-                    showPlayer(false);
+        
 
-                }
-            }
-            if (isUsingElevator)
-            {
-
-                if (Mathf.Abs(mRigidbody.position.y - newPosition.y) > 0.1)
-                {
-                    if (mRigidbody.position.y - newPosition.y < 0)
-                        mRigidbody.position += new Vector3(0, 0.1f, 0);
-                    else
-                    {
-                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
-                    }
-
-                }
-                else
-                {
-                    isUsingElevator = false;
-                    mRigidbody.useGravity = true;
-                    mRigidbody.detectCollisions = true;
-                    showPlayer(true);
-                }
-            }
-        }
     }
 
     public void changeFLoorBy(int change)

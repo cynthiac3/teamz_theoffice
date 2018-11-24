@@ -44,6 +44,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
+    bool hasKey=false;
 
     public static void StartGame()
     {
@@ -128,14 +129,17 @@ public class Player1Controller : MonoBehaviour
             // set animations based on speed and if grounded
             animations();
 
+            // Using the door to go to the roof top
             if (atRooftopDoor) {
-                Debug.Log("rooftop door");
                 if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 {
-                    mRigidbody.useGravity = false;
-                    mRigidbody.detectCollisions = false;
-                    showPlayer(false);
-                    isUsingRoofTopDoor = true;
+                    if (hasKey)
+                    {
+                        mRigidbody.useGravity = false;
+                        mRigidbody.detectCollisions = false;
+                        showPlayer(false);
+                        isUsingRoofTopDoor = true;
+                    }       
                 }
             }
 

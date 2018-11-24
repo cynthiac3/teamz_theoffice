@@ -19,7 +19,6 @@ public class FireExtinguish : MonoBehaviour {
     {
         if (other.tag.Equals("Foam"))    // If touched by foam, extinguish
         {
-            Debug.Log("Collision foam and fire.");
             Destroy(gameObject);
         }
     }

@@ -334,7 +334,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1711050153983958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 7.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4497704091618212}
@@ -437,7 +437,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2836d9ec996b89b478586f8d0890b98d, type: 2}
+  - {fileID: 2100000, guid: 862bb8c4f54087d488fb922fa5438c70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -472,7 +472,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2836d9ec996b89b478586f8d0890b98d, type: 2}
+  - {fileID: 2100000, guid: 862bb8c4f54087d488fb922fa5438c70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -507,7 +507,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2836d9ec996b89b478586f8d0890b98d, type: 2}
+  - {fileID: 2100000, guid: 7070ab541e124e04bbbe240d3a883945, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -577,7 +577,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2836d9ec996b89b478586f8d0890b98d, type: 2}
+  - {fileID: 2100000, guid: ef9e32c764941934c872eba6666d3bb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -612,7 +612,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2836d9ec996b89b478586f8d0890b98d, type: 2}
+  - {fileID: 2100000, guid: 862bb8c4f54087d488fb922fa5438c70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac42bc4cf26d344db0860003528b69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructable: 0
+  destructable: 1
   debris: {fileID: 1296558488063752, guid: 187b2f6d18f2f7849aeb9af6d85feeab, type: 2}
 --- !u!114 &114428545336729764
 MonoBehaviour:
@@ -942,5 +942,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac42bc4cf26d344db0860003528b69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructable: 0
+  destructable: 1
   debris: {fileID: 1296558488063752, guid: 187b2f6d18f2f7849aeb9af6d85feeab, type: 2}

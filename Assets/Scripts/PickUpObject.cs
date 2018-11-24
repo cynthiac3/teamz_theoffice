@@ -24,12 +24,25 @@ public class PickUpObject : MonoBehaviour
 
     }
 
+    /*
     private void OnTriggerEnter(Collider col)
     {
         if(col.tag.Equals("Player"))
         {
-            Destroy(gameObject);
             Destroy(circle);
+            Destroy(gameObject);
+
         }
+    }*/
+
+    public void destroyCircle() {
+        Destroy(circle);
+    }
+
+    public void destroyItem()
+    {
+        Debug.Log("Inside destroyItem method");
+        Destroy(circle);
+        Destroy(gameObject);
     }
 }

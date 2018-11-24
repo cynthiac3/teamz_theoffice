@@ -59,7 +59,7 @@ public class Player1Controller : MonoBehaviour
         totalAngle = 0;
         corner = false;
         currentFloor = 1;
-        anim = transform.GetChild(5).GetComponent<Animator>();
+        anim = transform.GetChild(3).GetComponent<Animator>();
         isUsingElevator = false;
         atAlarm = false;
         atGenerator = false;
@@ -118,6 +118,7 @@ public class Player1Controller : MonoBehaviour
             animations();
 
             if (atRooftopDoor) {
+                Debug.Log("rooftop door");
                 if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 {
                     mRigidbody.useGravity = false;
@@ -175,9 +176,16 @@ public class Player1Controller : MonoBehaviour
         }
 
         if (other.tag.Equals(extinguisherTriggerTag))   // Touching an extinguisher
-        {
-            Destroy(other.gameObject);
+        {           
+            other.gameObject.GetComponent<PickUpObject>().destroyItem();
+            //Debug.Log("Collision player1controller method");
             transform.GetChild(1).gameObject.SetActive(true);
+            //Destroy(other.gameObject);
+        }
+
+        if (other.tag.Equals("PickUpItem"))   // Touching an pick up item
+        {
+            other.gameObject.GetComponent<PickUpObject>().destroyItem();
         }
 
         //collision to allow interaction with a fire alarm

@@ -49,30 +49,39 @@ public class Player1Controller : MonoBehaviour
     public Vector3 startLocation;
     private int health=100;
 
-    public GameObject Player2;
-    public SimpleHealthBar healthBar2;
+    // Fire Extinguisher
+    public GameObject FireExtinguisher;
+    public GameObject Item;
+
+
     private int health2 = 100;
 
     //keys
-    public GameObject Player1Key;
-    public GameObject Player2Key;
+    public GameObject PlayerKey;
 
     //Player Floor
     public Text PlayerFloor;
 
-    public void Player1HasKey(bool i)
+    public void PlayerHasKey(bool i)
     {
-        if (i) Player1Key.active = true;
-        if (!i) Player1Key.active = false;
+        if (i) PlayerKey.active = true;
+        if (!i) PlayerKey.active = false;
     }
 
-    public void Player2HasKey(bool i)
+    public void PlayerHasExtinguisher(bool i)
     {
-        if (i) Player2Key.active = true;
-        if (!i) Player2Key.active = false;
+        if (i) FireExtinguisher.active = true;
+        if (!i) FireExtinguisher.active = false;
     }
 
-    public void Player1TakeDamage(int damage)
+    public void PlayerHasItem(bool i)
+    {
+        if (i) Item.active = true;
+        if (!i) Item.active = false;
+    }
+
+
+    public void PlayerTakeDamage(int damage)
     {
         health -= damage;
         healthBar.UpdateBar(health, 100);
@@ -83,23 +92,9 @@ public class Player1Controller : MonoBehaviour
             Player.transform.position = startLocation;
             health = 100;
             healthBar.UpdateBar(health, 100);
-            Player1HasKey(false); //Lose Key on Death
-        }
-
-    }
-
-    public void Player2TakeDamage(int damage)
-    {
-        health2 -= damage;
-        healthBar2.UpdateBar(health2, 100);
-
-        if (health2 == 0)
-        {
-            // play Death animation
-            Player2.transform.position = startLocation;
-            health2 = 100;
-            healthBar2.UpdateBar(health2, 100);
-            Player2HasKey(false); //Lose Key on Death
+            PlayerHasKey(false); //Lose Key on Death
+            PlayerHasExtinguisher(false);
+            PlayerHasItem(false);    
         }
 
     }
@@ -267,6 +262,9 @@ public class Player1Controller : MonoBehaviour
         {
             //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
             pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
+
+            PlayerTakeDamage(25);
+            PlayerHasKey(true);
 
         }
 

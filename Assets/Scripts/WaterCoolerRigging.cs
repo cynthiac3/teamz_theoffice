@@ -56,6 +56,19 @@ public class WaterCoolerRigging : MonoBehaviour {
                 StartCoroutine(DestroyEffects(pScript, stunned, jet));
             }
         }
+        if (col.tag.Equals("Projectile"))
+        {
+            //Trap is Triggered
+            if (active)
+            {
+                active = false;
+                shaking = false;
+                Destroy(circle);
+                Destroy(col.gameObject);
+                GameObject jet = Instantiate(waterStream, transform);
+                StartCoroutine(KillJet(jet));
+            }
+        }
 
     }
     private void OnTriggerExit(Collider col)
@@ -91,6 +104,11 @@ public class WaterCoolerRigging : MonoBehaviour {
         pscript.setStun(false);
         Destroy(stun);
         Destroy(water);
+    }
+    public IEnumerator KillJet(GameObject jet)
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(jet);
     }
 
 }

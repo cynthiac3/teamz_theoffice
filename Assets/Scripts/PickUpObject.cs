@@ -6,6 +6,7 @@ public class PickUpObject : MonoBehaviour
 {
     public Vector3 torqueDir; //Custom torque vector for each of the 4 different objects
     public GameObject pickupInd;
+    public int versionIndex;
     private GameObject circle;
 
     // Use this for initialization

@@ -15,6 +15,7 @@ TagManager:
   - Rooftop
   - WaterCooler
   - PickUpItem
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,13 @@ public class Player1Controller : MonoBehaviour
     //for water cooler "Trap"
     private bool stunned;
 
+    //for throwable objects
+    private bool holding;
+    private int heldVers;
+    public GameObject[] projectiles;
+    private float facingDir;
+    public int health = 100; //TEMPORARY HEALTH VARIABLE
+
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
@@ -66,7 +73,9 @@ public class Player1Controller : MonoBehaviour
         atGenerator = false;
         stunned = false;
         isUsingRoofTopDoor = false;
-        
+        holding = false;
+        heldVers = -1;
+
     }
 
     private void Update()
@@ -74,6 +83,10 @@ public class Player1Controller : MonoBehaviour
         if (gameStart && !stunned)
         {
             float inputHorizontal = Input.GetAxis("Horizontal" + playerNum);
+            if (inputHorizontal != 0)
+            {
+                facingDir = inputHorizontal;
+            }
             elevatorDoorCheck();
             
             Vector3 pos = mRigidbody.position;
@@ -166,6 +179,24 @@ public class Player1Controller : MonoBehaviour
                 }
             }
 
+            //Throwing an object
+            if (Input.GetButtonDown("Throw" + playerNum) && holding)
+            {
+                holding = false;
+                if (facingDir > 0)
+                {
+                    GameObject thrown = Instantiate(projectiles[heldVers], transform.position + transform.forward, Quaternion.identity);
+                    Rigidbody thrownBody = thrown.GetComponent<Rigidbody>();
+                    thrownBody.velocity = transform.forward * 25;
+                }
+                else
+                {
+                    GameObject thrown = Instantiate(projectiles[heldVers], transform.position - transform.forward, Quaternion.identity);
+                    Rigidbody thrownBody = thrown.GetComponent<Rigidbody>();
+                    thrownBody.velocity = -transform.forward * 25;
+                }
+            }
+
         }
 
     }
@@ -198,9 +229,13 @@ public class Player1Controller : MonoBehaviour
             //Destroy(other.gameObject);
         }
 
-        if (other.tag.Equals("PickUpItem"))   // Touching an pick up item
+        if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
         {
-            other.gameObject.GetComponent<PickUpObject>().destroyItem();
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+            holding = true;
+            heldVers = obj.versionIndex;
+            //Debug.Log("Picked up item " + heldVers);
+            obj.destroyItem();
         }
 
         //collision to allow interaction with a fire alarm
@@ -291,6 +326,15 @@ public class Player1Controller : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        //Taking Damage from getting hit by a thrown object
+        if (other.gameObject.tag.Equals("Projectile"))
+        {
+            //Debug.Log("I'M HIT!!!!!");
+            Destroy(other.gameObject);
+            health -= 5;
+        }
+
+        //NOTE: error being thrown if the collision isn't a floor (other collisions don't always have "parents")
         if (other.transform.parent.gameObject.name.Contains("Floor"))
         {
 

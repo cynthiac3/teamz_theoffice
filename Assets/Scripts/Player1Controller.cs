@@ -163,10 +163,10 @@ public class Player1Controller : MonoBehaviour
                 if (Mathf.Abs(mRigidbody.position.y - roofPosition.y) > 0.1)
                 {
                     if (mRigidbody.position.y - roofPosition.y < 0)
-                        mRigidbody.position += new Vector3(0, 0.1f, 0);
+                        mRigidbody.position += new Vector3(0, 1.0f, 0) * Time.deltaTime;
                     else
                     {
-                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
+                        mRigidbody.position -= new Vector3(0, 1.0f, 0) * Time.deltaTime;
                     }
 
                 }
@@ -360,6 +360,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = false;
                     mRigidbody.detectCollisions = false;
                     showPlayer(false);
+                    mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                 }
             }
             if(isUsingElevator)
@@ -381,7 +382,8 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
-                }
+                    mRigidbody.constraints = RigidbodyConstraints.None;
+                 }
             }
         
 

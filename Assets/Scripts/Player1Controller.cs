@@ -136,7 +136,7 @@ public class Player1Controller : MonoBehaviour
             }
 
             //jump when Button "Jump" is pressed
-            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded())
+            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded() && !isInfrontOfElevator(pos))
                 jump();
 
             // set animations based on speed and if grounded
@@ -365,16 +365,16 @@ public class Player1Controller : MonoBehaviour
             }
             if(isUsingElevator)
             {
-
                 if (Mathf.Abs(mRigidbody.position.y - newPosition.y) > 0.1)
                 {
                     if (mRigidbody.position.y - newPosition.y < 0)
-                        mRigidbody.position += new Vector3(0, 0.1f, 0);
+                    { 
+                        mRigidbody.position += new Vector3(0, 5.0f, 0) * Time.deltaTime;
+                    }
                     else
                     {
-                        mRigidbody.position -= new Vector3(0, 0.1f, 0);
+                        mRigidbody.position -= new Vector3(0, 5.0f, 0) * Time.deltaTime;
                     }
-
                 }
                 else
                 {
@@ -393,9 +393,11 @@ public class Player1Controller : MonoBehaviour
     {
         GameObject floor = GameObject.Find("Floor " + (change + currentFloor));
         Vector3 pos = mRigidbody.position;
+        print("old " + pos.y);
         pos.y = floor.transform.position.y + 0.5f;
         //mRigidbody.position = pos;
         newPosition = pos;
+        print("new " + pos.y);
     }
 
     private bool isInfrontOfElevator(Vector3 pos)

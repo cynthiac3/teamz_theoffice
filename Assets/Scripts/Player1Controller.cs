@@ -113,23 +113,12 @@ public class Player1Controller : MonoBehaviour
             // Activate fire extinguisher spray
             if (transform.GetChild(1).gameObject.activeInHierarchy)
             {
-                // Player 1
-                if (Input.GetKey(KeyCode.LeftShift) && playerNum ==1)
+                if (Input.GetButtonDown("Extinguisher" + playerNum))
                 {
                     transform.GetChild(2).gameObject.SetActive(true);
 
                 }
-                else if (!Input.GetKey(KeyCode.LeftShift) && playerNum == 1)
-                {
-                    transform.GetChild(2).gameObject.SetActive(false);
-                }
-                // Player 2
-                if (Input.GetKey(KeyCode.RightShift) && playerNum == 2)
-                {
-                    transform.GetChild(2).gameObject.SetActive(true);
-
-                }
-                else if (!Input.GetKey(KeyCode.RightShift) && playerNum == 2)
+                if (Input.GetButtonUp("Extinguisher" + playerNum))
                 {
                     transform.GetChild(2).gameObject.SetActive(false);
                 }
@@ -144,7 +133,7 @@ public class Player1Controller : MonoBehaviour
 
             // Using the door to go to the roof top
             if (atRooftopDoor) {
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+                if (Input.GetButtonDown("Elevator" + playerNum))
                 {
                     if (hasKey)
                     {

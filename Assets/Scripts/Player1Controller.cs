@@ -291,6 +291,12 @@ public class Player1Controller : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNum)));
     }
 
+    public void turnAnimation()
+    {
+        anim.Play("Player_Turn");
+        transform.GetChild(3).GetComponent<PlayerModelFlip>().turnToWall();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag.Equals(cornerTriggerTag))

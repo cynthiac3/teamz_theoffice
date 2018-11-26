@@ -50,6 +50,9 @@ public class PowerGenerators : MonoBehaviour {
         //PLAYER 1 triggers the fire alarm
         if (Input.GetButtonDown("Fire1") && !genCoolDown && p1Script.getGenStatus())
         {
+            //trigger turn animation
+            p1Script.turnAnimation();
+
             genCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();
@@ -80,6 +83,10 @@ public class PowerGenerators : MonoBehaviour {
         //PLAYER 2 triggers the fire alarm
         if (Input.GetButtonDown("Fire2") && !genCoolDown && p2Script.getGenStatus())
         {
+
+            //trigger turn animation
+            p2Script.turnAnimation();
+
             genCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();

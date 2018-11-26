@@ -64,20 +64,17 @@ public class Player1Controller : MonoBehaviour
 
     public void PlayerHasKey(bool i)
     {
-        if (i) PlayerKey.active = true;
-        if (!i) PlayerKey.active = false;
+        PlayerKey.active = i;
     }
 
     public void PlayerHasExtinguisher(bool i)
     {
-        if (i) FireExtinguisher.active = true;
-        if (!i) FireExtinguisher.active = false;
+        FireExtinguisher.active = i;
     }
 
     public void PlayerHasItem(bool i)
     {
-        if (i) Item.active = true;
-        if (!i) Item.active = false;
+       Item.active = i;
     }
 
 
@@ -262,9 +259,6 @@ public class Player1Controller : MonoBehaviour
         {
             //pos = new Vector3(transform.position.x, transform.position.y + jumpForce, transform.position.z);
             pos = new Vector3(pos.x, pos.y + jumpForce, pos.z);
-
-            PlayerTakeDamage(25);
-            PlayerHasKey(true);
 
         }
 

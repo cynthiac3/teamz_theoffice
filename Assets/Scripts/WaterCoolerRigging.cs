@@ -23,18 +23,38 @@ public class WaterCoolerRigging : MonoBehaviour {
         coolDown = false;
         atWater = false;
         circle = Instantiate(usableCircle, transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90,0,0));
+        
+        //"imports" the player scripts so private variables can be used
+        GameObject p1 = GameObject.Find("Player");
+        p1Script = p1.GetComponent<Player1Controller>();
+        GameObject p2 = GameObject.Find("Player2");
+        p2Script = p2.GetComponent<Player1Controller>();
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if ((Input.GetButtonDown("Fire1")||Input.GetButtonDown("Fire2")) && !coolDown && atWater)
+        if (Input.GetButtonDown("Fire1") && !coolDown && atWater)
         {
+
+            //trigger turn animation
+            p1Script.turnAnimation();
+
             coolDown = true;
             shaking = true;
             StartCoroutine(TrapIsSet());
         }
-        if(shaking)
+        if (Input.GetButtonDown("Fire2") && !coolDown && atWater)
+        {
+
+            //trigger turn animation
+            p2Script.turnAnimation();
+
+            coolDown = true;
+            shaking = true;
+            StartCoroutine(TrapIsSet());
+        }
+        if (shaking)
         {
             transform.position += new Vector3(Mathf.Sin(Time.time * 40.0f) * 0.005f, 0, Mathf.Sin(Time.time * 40.0f) * 0.005f);
         }
@@ -82,6 +102,7 @@ public class WaterCoolerRigging : MonoBehaviour {
 
     public IEnumerator TrapIsSet()
     {
+
         active = true;
         yield return new WaitForSeconds(45);
         if(!shaking)

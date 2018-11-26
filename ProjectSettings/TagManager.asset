@@ -16,6 +16,7 @@ TagManager:
   - WaterCooler
   - PickUpItem
   - Projectile
+  - ElecHazard
   layers:
   - Default
   - TransparentFX

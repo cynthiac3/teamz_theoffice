@@ -47,6 +47,9 @@ public class Player1Controller : MonoBehaviour
     bool grounded;
     float xPosition;
 
+    // For electrical hazard
+    public GameObject lightningEffect;
+
     // For rooftop
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
@@ -213,9 +216,14 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals(extinguisherTriggerTag))   // Touching an extinguisher
         {           
             other.gameObject.GetComponent<PickUpObject>().destroyItem();
-            //Debug.Log("Collision player1controller method");
             transform.GetChild(1).gameObject.SetActive(true);
-            //Destroy(other.gameObject);
+        }
+    
+        if (other.tag.Equals("ElecHazard"))   // Touching an electrical object
+        {
+            Destroy(other.gameObject.GetComponent<SphereCollider>()); // remove the collider so item stays there but doesn't affect anymore
+            Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
+            health -= 10;
         }
 
         if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
@@ -281,6 +289,12 @@ public class Player1Controller : MonoBehaviour
             anim.SetBool("IsGrounded", false);
 
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNum)));
+    }
+
+    public void turnAnimation()
+    {
+        anim.Play("Player_Turn");
+        transform.GetChild(3).GetComponent<PlayerModelFlip>().turnToWall();
     }
 
     private void OnTriggerExit(Collider other)

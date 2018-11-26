@@ -426,11 +426,21 @@ public class Player1Controller : MonoBehaviour
         float random = Random.value;
         int oldFloor = currentFloor;
         int newFLoor = 0;
+
         if(random < 0.5)
         {
-            changeFLoorBy(1);
-            newFLoor = oldFloor + 1;
-            print("up 1 floor");
+            if (currentFloor == 10)
+            {
+                changeFLoorBy(-1);
+                newFLoor = oldFloor - 1;
+                print("down 1 floor");
+            }
+            else
+            {
+                changeFLoorBy(1);
+                newFLoor = oldFloor + 1;
+                print("up 1 floor");
+            }
         }
         else if(random < 0.7)
         {
@@ -483,6 +493,11 @@ public class Player1Controller : MonoBehaviour
             transform.GetChild(1).GetComponent<Renderer>().enabled = state;
         // Hide body
         transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = state;
+    }
+
+    private void respawn()
+    {
+        changeFLoorBy(-currentFloor + 1);
     }
 
 } // end of class

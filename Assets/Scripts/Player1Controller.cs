@@ -174,6 +174,9 @@ public class Player1Controller : MonoBehaviour
             //Throwing an object
             if (Input.GetButtonDown("Throw" + playerNum) && holding)
             {
+                //trigger throw animation
+                anim.Play("Player_Throw");
+
                 holding = false;
                 if (facingDir > 0)
                 {
@@ -224,6 +227,7 @@ public class Player1Controller : MonoBehaviour
             Destroy(other.gameObject.GetComponent<SphereCollider>()); // remove the collider so item stays there but doesn't affect anymore
             Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
             health -= 10;
+            anim.Play("Player_Hit");
         }
 
         if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
@@ -335,6 +339,7 @@ public class Player1Controller : MonoBehaviour
             //Debug.Log("I'M HIT!!!!!");
             Destroy(other.gameObject);
             health -= 5;
+            anim.Play("Player_Hit");
         }
 
         //NOTE: error being thrown if the collision isn't a floor (other collisions don't always have "parents")

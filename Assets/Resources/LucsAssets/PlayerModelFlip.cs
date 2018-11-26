@@ -9,6 +9,8 @@ public class PlayerModelFlip : MonoBehaviour {
     private ParticleSystem ps; // foam particles from extinguisher
     GameObject extinguisher;
     Quaternion targetRotation;
+    public AudioSource step1;
+    public AudioSource step2;
 
     // Use this for initialization
     void Start () {
@@ -82,6 +84,14 @@ public class PlayerModelFlip : MonoBehaviour {
         //extinguisher
         extinguisher.transform.RotateAround(transform.parent.position, Vector3.up, -90);//1 is speed
 
+    }
+
+    void Footstep()
+    {
+        if (Random.Range(0, 2) == 0)
+            step1.Play();
+        else
+            step2.Play();
     }
 
 }

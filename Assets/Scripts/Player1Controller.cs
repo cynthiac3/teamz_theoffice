@@ -228,6 +228,7 @@ public class Player1Controller : MonoBehaviour
             Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
             health -= 10;
             anim.Play("Player_Hit");
+            transform.GetComponent<AudioSource>().Play();
         }
 
         if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
@@ -340,6 +341,7 @@ public class Player1Controller : MonoBehaviour
             Destroy(other.gameObject);
             health -= 5;
             anim.Play("Player_Hit");
+            transform.GetComponent<AudioSource>().Play();
         }
 
         //NOTE: error being thrown if the collision isn't a floor (other collisions don't always have "parents")

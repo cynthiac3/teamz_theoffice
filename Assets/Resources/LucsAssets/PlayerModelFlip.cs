@@ -8,6 +8,7 @@ public class PlayerModelFlip : MonoBehaviour {
     int playerNum;
     private ParticleSystem ps; // foam particles from extinguisher
     GameObject extinguisher;
+    Quaternion targetRotation;
 
     // Use this for initialization
     void Start () {
@@ -15,6 +16,7 @@ public class PlayerModelFlip : MonoBehaviour {
         playerNum = transform.parent.GetComponent<Player1Controller>().playerNum;
         ps =  transform.parent.GetChild(2).GetComponent<ParticleSystem>();
         extinguisher = transform.parent.GetChild(1).gameObject;
+        targetRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -44,4 +46,42 @@ public class PlayerModelFlip : MonoBehaviour {
         transform.rotation = Quaternion.Euler(rot);
 
     }
+
+    public void turnToWall()
+    {
+        if (faceRight)
+        {
+            turnBack();
+            Invoke("turn", 0.5f);
+        }
+        else
+        {
+            turn();
+            Invoke("turnBack", 0.5f);
+        }
+
+    }
+
+    void turn()
+    {
+
+        Vector3 rot = transform.rotation.eulerAngles;
+        rot = new Vector3(rot.x, rot.y + 90, rot.z);
+        transform.rotation = Quaternion.Euler(rot);
+
+        //extinguisher
+        extinguisher.transform.RotateAround(transform.parent.position, Vector3.up, 90);//1 is speed
+
+    }
+    void turnBack()
+    {
+        Vector3 rot = transform.rotation.eulerAngles;
+        rot = new Vector3(rot.x, rot.y - 90, rot.z);
+        transform.rotation = Quaternion.Euler(rot);
+
+        //extinguisher
+        extinguisher.transform.RotateAround(transform.parent.position, Vector3.up, -90);//1 is speed
+
+    }
+
 }

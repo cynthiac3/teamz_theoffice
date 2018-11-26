@@ -40,6 +40,10 @@ public class Sprinklers : MonoBehaviour {
             alarmCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();
+
+            //trigger turn animation
+            p1Script.turnAnimation();
+
             //In the event that both players are on the same floor when switch is pulled
             if (p1Lvl == p2Lvl)
             {
@@ -91,6 +95,10 @@ public class Sprinklers : MonoBehaviour {
             alarmCoolDown = true;
             int p2Lvl = p2Script.getCurrentFloor();
             int p1Lvl = p1Script.getCurrentFloor();
+
+            //trigger turn animation
+            p2Script.turnAnimation();
+
             //In the event that both players are on the same floor when switch is pulled
             if (p1Lvl == p2Lvl)
             {

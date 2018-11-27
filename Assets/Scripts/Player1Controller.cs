@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Player1Controller : MonoBehaviour
     public GameObject[] projectiles;
     private float facingDir;
     public int health = 100; //TEMPORARY HEALTH VARIABLE
+    public int health2 = 100; //TEMPORARY HEALTH VARIABLE
 
     // for animation() and jump()
     private Animator anim;
@@ -56,8 +58,36 @@ public class Player1Controller : MonoBehaviour
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
     bool hasKey=false;
 
-    // For extinguisher
-    public GameObject extinguisherPrefab;
+
+    // Healthbar
+    public GameObject Player;
+    public SimpleHealthBar healthBar;
+    public Vector3 startLocation;
+
+    //items
+    public GameObject PlayerKey;
+    public GameObject FireExtinguisher;
+    public GameObject Item;
+
+    //Player Floor
+    public Text PlayerFloor;
+
+
+    public void PlayerHasKey(bool i)
+    {
+        PlayerKey.active = i;
+    }
+
+    public void PlayerHasExtinguisher(bool i)
+    {
+        FireExtinguisher.active = i;
+    }
+
+    public void PlayerHasItem(bool i)
+    {
+        Item.active = i;
+    }
+
 
     public static void StartGame()
     {
@@ -86,13 +116,10 @@ public class Player1Controller : MonoBehaviour
 
     private void Update()
     {
+
+        PlayerFloor.text = "Floor: " + currentFloor;
         if (gameStart && !stunned)
         {
-            if (Input.GetKey(KeyCode.I)) {
-                Die();
-            }
-
-
             float inputHorizontal = Input.GetAxis("Horizontal" + playerNum);
             if (inputHorizontal != 0)
             {
@@ -138,6 +165,9 @@ public class Player1Controller : MonoBehaviour
             //jump when Button "Jump" is pressed
             if (Input.GetButtonDown("Jump" + playerNum) && isGrounded() && !isInfrontOfElevator(pos))
                 jump();
+
+
+
 
             // set animations based on speed and if grounded
             animations();
@@ -529,23 +559,7 @@ public class Player1Controller : MonoBehaviour
 
     private void respawn()
     {
-        changeFLoorBy(-currentFloor + 2);
-    }
-
-    void Die() {
-       
-        hasKey = false; // TODO: FIX WITH NATHAN'S CODE
-        // Drop extinguisher if holding one
-        if (transform.GetChild(1).gameObject.active) {
-            transform.GetChild(1).gameObject.SetActive(false);
-            Instantiate(extinguisherPrefab, transform.position + new Vector3(1,0,0), Quaternion.Euler(-90,0,0));
-
-        }
-        // remove pick up item
-        holding = false;
-
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+        changeFLoorBy(-currentFloor + 1);
     }
 
 } // end of class

@@ -373,12 +373,16 @@ public class Player1Controller : MonoBehaviour
             {
                 if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
                 {
-                    useElevator();
                     isUsingElevator = true;
-                    mRigidbody.useGravity = false;
-                    mRigidbody.detectCollisions = false;
-                    showPlayer(false);
-                    mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+                    useElevator();
+                
+                    if (isUsingElevator)
+                    {
+                        mRigidbody.useGravity = false;
+                        mRigidbody.detectCollisions = false;
+                        showPlayer(false);
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+                    }
                 }
             }
             if(isUsingElevator)
@@ -432,6 +436,7 @@ public class Player1Controller : MonoBehaviour
         GameManager.elevators[currentFloor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[currentFloor-1].state = GameManager.Elevator.State.CLOSED;
         float random = Random.value;
+        int randomChangeFloor = getRandomChangeFloor();
         int oldFloor = currentFloor;
         int newFLoor = 0;
 
@@ -439,25 +444,40 @@ public class Player1Controller : MonoBehaviour
         {
             if (currentFloor == 10)
             {
-                changeFLoorBy(-1);
-                newFLoor = oldFloor - 1;
-                print("down 1 floor");
+                changeFLoorBy(-randomChangeFloor);
+                newFLoor = oldFloor - randomChangeFloor;
+                print("down " + randomChangeFloor + " floor");
             }
             else
             {
-                changeFLoorBy(1);
-                newFLoor = oldFloor + 1;
-                print("up 1 floor");
+                if(currentFloor + randomChangeFloor > 10)
+                {
+                    randomChangeFloor = 10 - currentFloor;
+                }
+                    
+                changeFLoorBy(randomChangeFloor);
+                newFLoor = oldFloor + randomChangeFloor;
+                print("up " + randomChangeFloor + " floor");
             }
         }
-        else if(random < 0.7)
+        else if(random < 7.0)
         {
-            if (currentFloor != 1)
+            if (currentFloor - randomChangeFloor < 2)
             {
-                changeFLoorBy(-1);
-                newFLoor = oldFloor - 1;
+                randomChangeFloor = currentFloor - 2;
             }
-            print("down 1 floor");
+
+            if (currentFloor != 2)
+            {
+                changeFLoorBy(-randomChangeFloor);
+            }
+            else{
+                isUsingElevator = false;
+            }
+
+
+            newFLoor = oldFloor - randomChangeFloor;
+            print("down " + randomChangeFloor + " floor");
         }
         else{
             Player1Controller otherPlayer;
@@ -479,6 +499,10 @@ public class Player1Controller : MonoBehaviour
 
         GameManager.elevators[newFLoor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
+    }
+
+    private int getRandomChangeFloor(){
+        return ((int)(Random.value * 10 + 1)) % 4 + 1;
     }
 
     //getter for use in "Sprinklers.cs"

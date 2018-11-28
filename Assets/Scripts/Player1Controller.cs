@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Player1Controller : MonoBehaviour
     private bool isUsingElevator;
     private Vector3 newPosition;
     public int currentFloor;
+    public bool died;
 
     //for fire alarm "Trap"
     private const string alarmTag = "FireAlarm";
@@ -57,7 +59,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=false;
+    bool hasKey=true;
 
 
     // Healthbar
@@ -72,6 +74,9 @@ public class Player1Controller : MonoBehaviour
 
     //Player Floor
     public Text PlayerFloor;
+
+    //end Canvas
+    public GameObject endCanvas;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
@@ -170,7 +175,7 @@ public class Player1Controller : MonoBehaviour
             }
 
             //jump when Button "Jump" is pressed
-            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded() && !isInfrontOfElevator(pos))
+            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded())
                 jump();
 
 
@@ -187,6 +192,7 @@ public class Player1Controller : MonoBehaviour
                         mRigidbody.detectCollisions = false;
                         showPlayer(false);
                         isUsingRoofTopDoor = true;
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                     }       
                 }
             }
@@ -211,6 +217,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
+                    mRigidbody.constraints = RigidbodyConstraints.None;
                 }
             }
 
@@ -307,13 +314,40 @@ public class Player1Controller : MonoBehaviour
         {
             atGenerator = true;
         }
-        
+
         //collision to allow interaction with rooftop door
         if (other.tag.Equals("Rooftop"))
         {
             atRooftopDoor = true;
         }
 
+        if (other.tag.Equals("cutscene"))
+        {
+            other.GetComponent<Collider>().enabled = false;
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            cameras[0].enabled = false;
+            cameras[1].enabled = false;
+            cameras[2].enabled = false;
+            GameObject.Find("cutSceneCam").GetComponent<Camera>().enabled = true;
+            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
+            showPlayer(false); 
+            GameObject.Find("Canvas").SetActive(false);
+            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
+
+            endCanvas.gameObject.SetActive(true);
+            string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+            text = text.Replace("0", playerNum.ToString());
+            endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+            Invoke("loadScene", 5.0f);
+
+        }
+       
+    }
+
+    void loadScene()
+    {
+        SceneManager.LoadScene("Menu3");
     }
     
     public void isNotAttacking() { Invoke("turnOffAttacking", 0.5f); }
@@ -434,7 +468,7 @@ public class Player1Controller : MonoBehaviour
                 if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
                 {
                     isUsingElevator = true;
-                    useElevator();
+                    useElevator(false);
                 
                     if (isUsingElevator)
                     {
@@ -465,6 +499,22 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
                     mRigidbody.constraints = RigidbodyConstraints.None;
+
+                    if(died)
+                    {
+                     //Respawn
+                        if (playerNum == 1){
+                            transform.position = spawnpoints[0].transform.position;
+                            health = 100;
+                            healthBar.UpdateBar(health, 100);
+                        }
+                        else {
+                            transform.position = spawnpoints[1].transform.position;
+                            health2 = 100;
+                            healthBar.UpdateBar(health2, 100);
+                        }
+                        died = false;
+                    }
                  }
             }
         
@@ -492,13 +542,19 @@ public class Player1Controller : MonoBehaviour
         return currentFloor;
     }
 
-    private void useElevator(){
+    private void useElevator(bool die){
         GameManager.elevators[currentFloor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[currentFloor-1].state = GameManager.Elevator.State.CLOSED;
         float random = Random.value;
         int randomChangeFloor = getRandomChangeFloor();
         int oldFloor = currentFloor;
         int newFLoor = 0;
+
+        if(die)
+        {
+            random = 0.6f;
+            randomChangeFloor = currentFloor - 2;
+        }
 
         if(random < 0.5)
         {
@@ -604,16 +660,28 @@ public class Player1Controller : MonoBehaviour
         // remove pick up item
         holding = false;
         // Respawn
-        if (playerNum == 1){
-            transform.position = spawnpoints[0].transform.position;
-            health = 100;
-            healthBar.UpdateBar(health, 100);
-        }
-        else {
-            transform.position = spawnpoints[1].transform.position;
-            health2 = 100;
-            healthBar.UpdateBar(health2, 100);
-        }
+        //if (playerNum == 1){
+        //    transform.position = spawnpoints[0].transform.position;
+        //    health = 100;
+        //    healthBar.UpdateBar(health, 100);
+        //}
+        //else {
+        //    transform.position = spawnpoints[1].transform.position;
+        //    health2 = 100;
+        //    healthBar.UpdateBar(health2, 100);
+        //}
+        isUsingElevator = true;
+        useElevator(true);
+        if(playerNum == 1)
+            mRigidbody.transform.position = new Vector3(spawnpoints[0].transform.position.x, mRigidbody.transform.position.y,mRigidbody.transform.position.z);
+        else
+            mRigidbody.transform.position = new Vector3(spawnpoints[1].transform.position.x, mRigidbody.transform.position.y, mRigidbody.transform.position.z);
+
+        mRigidbody.useGravity = false;
+        mRigidbody.detectCollisions = false;
+        showPlayer(false);
+        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+        died = true;
     }
 
     void loseHealth(int damage) {

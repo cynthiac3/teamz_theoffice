@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4301031, g: 0.501544, b: 0.5692817, a: 1}
+  m_IndirectSpecularColor: {r: 0.43004215, g: 0.5014993, b: 0.56921995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -58878,6 +58878,11 @@ Prefab:
       propertyPath: m_Center.z
       value: 1.3386966
       objectReference: {fileID: 0}
+    - target: {fileID: 114005158413593108, guid: 37a20f409bf6258498dd137e4a373ee1,
+        type: 2}
+      propertyPath: endCanvas
+      value: 
+      objectReference: {fileID: 1024833215}
     m_RemovedComponents:
     - {fileID: 114713641219810214, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
@@ -62364,6 +62369,7 @@ MonoBehaviour:
   FireExtinguisher: {fileID: 1426027331}
   Item: {fileID: 1991950017}
   PlayerFloor: {fileID: 1175816723}
+  endCanvas: {fileID: 1024833215}
   extinguisherPrefab: {fileID: 1822975994991188, guid: 8672d652bce05324ab07238b28927d49,
     type: 2}
   spawnpoints:
@@ -83065,7 +83071,7 @@ RectTransform:
   m_GameObject: {fileID: 1915969704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.76268, y: 6.408101, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1024833219}
   m_RootOrder: 0
@@ -83073,7 +83079,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915969706
 MonoBehaviour:
@@ -83096,11 +83102,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: fae067962e5934395be31c8aba4a3455, type: 3}
-    m_FontSize: 16
+    m_FontSize: 61
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 5
-    m_MaxSize: 50
+    m_MaxSize: 63
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1

@@ -802,9 +802,10 @@ GameObject:
   - component: {fileID: 114806516452029602}
   - component: {fileID: 82781477385165428}
   - component: {fileID: 82318077078461518}
-  m_Layer: 0
+  - component: {fileID: 65589585655281904}
+  m_Layer: 13
   m_Name: m01_apron_00_h (1)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -896,9 +897,9 @@ GameObject:
   - component: {fileID: 23503477749944622}
   - component: {fileID: 135665092755336326}
   - component: {fileID: 114609589956989194}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (6)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1246,9 +1247,9 @@ GameObject:
   - component: {fileID: 23655296391599468}
   - component: {fileID: 135566483609932178}
   - component: {fileID: 114039320900948552}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (7)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1885,9 +1886,9 @@ GameObject:
   - component: {fileID: 23002591264910816}
   - component: {fileID: 135444027658031204}
   - component: {fileID: 114547647827802940}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (5)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2009,9 +2010,9 @@ GameObject:
   - component: {fileID: 23419391299122212}
   - component: {fileID: 135712007695409880}
   - component: {fileID: 114089180981029134}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (4)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2302,7 +2303,7 @@ Transform:
   m_GameObject: {fileID: 1955075426098210}
   m_LocalRotation: {x: -0.052286442, y: -0.18978706, z: -0.6600206, w: 0.72499645}
   m_LocalPosition: {x: -0.075, y: -0.01, z: -0.013}
-  m_LocalScale: {x: 0.10000141, y: 0.100001276, z: 0.10000142}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4547798832677028}
   m_RootOrder: 6
@@ -2760,7 +2761,7 @@ Transform:
   m_GameObject: {fileID: 1336103111684628}
   m_LocalRotation: {x: -0.021749243, y: 0.116940714, z: 0.01869506, w: 0.9927248}
   m_LocalPosition: {x: 0.023, y: -0.056, z: 0.089}
-  m_LocalScale: {x: 0.100000575, y: 0.100000314, z: 0.10000057}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4772654242260206}
   m_RootOrder: 1
@@ -3053,7 +3054,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1086902536510956}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.49, y: 4.35, z: 1.997}
+  m_LocalPosition: {x: 3.49, y: 17.23, z: 1.997}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4226509178904234}
@@ -3496,7 +3497,7 @@ Transform:
   m_GameObject: {fileID: 1865766584485500}
   m_LocalRotation: {x: 0.018032057, y: 0.112442724, z: 0.6771109, w: 0.727016}
   m_LocalPosition: {x: 0.072, y: -0.006, z: -0.013}
-  m_LocalScale: {x: 0.10000153, y: 0.100001395, z: 0.10000148}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4627183316047646}
   m_RootOrder: 6
@@ -3630,7 +3631,7 @@ Transform:
   m_GameObject: {fileID: 1489291397099432}
   m_LocalRotation: {x: 0.0000019380814, y: -0.060572978, z: -0.000035901186, w: 0.99816376}
   m_LocalPosition: {x: -0.01, y: -0.061, z: 0.084}
-  m_LocalScale: {x: 0.100000575, y: 0.100000344, z: 0.10000059}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4500207819144296}
   m_RootOrder: 1
@@ -4561,6 +4562,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300006, guid: 2cf3d8721078b4a4db4a4f7941a94633, type: 3}
+--- !u!65 &65589585655281904
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1315495956540762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53, y: 1.8, z: 0.45}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!65 &65608645013029210
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4936,6 +4949,7 @@ MonoBehaviour:
   health: 100
   health2: 100
   jumpForce: 3.5
+  isAttacking: 0
   lightningEffect: {fileID: 1539774664989032, guid: 575ae454249f81e46a5301e88cc15aaf,
     type: 2}
   Player: {fileID: 1086902536510956}

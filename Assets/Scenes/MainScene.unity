@@ -25620,6 +25620,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de9ad0fa697ed54db49ee8dcbe9d875, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &556584783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1750908359555580, guid: 1324b838bc62fce41992f61e3bc1cc36,
+    type: 2}
+  m_PrefabInternal: {fileID: 811286428}
+--- !u!65 &556584789
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 556584783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53, y: 1.8, z: 0.45}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!4 &556638785 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: b1cdf18d4a532df4d98bf10b8ffb52e7,
@@ -37726,6 +37743,46 @@ Prefab:
       propertyPath: spawnpoints.Array.data[1]
       value: 
       objectReference: {fileID: 1810936228}
+    - target: {fileID: 1807907804586252, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774353719845330, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827549286833612, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244096680222222, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774353719845330, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827549286833612, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244096680222222, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807907804586252, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750908359555580, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750908359555580, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1324b838bc62fce41992f61e3bc1cc36, type: 2}
   m_IsPrefabAsset: 0
@@ -45208,6 +45265,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.587883, y: 2.2671747, z: 1.8289592}
   m_Center: {x: 4.9534135, y: -0.36008507, z: -1.943693}
+--- !u!1 &1053723874 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1315495956540762, guid: 37a20f409bf6258498dd137e4a373ee1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1181070923}
+--- !u!65 &1053723880
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053723874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53, y: 1.8, z: 0.45}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1001 &1054912978
 Prefab:
   m_ObjectHideFlags: 0
@@ -51410,6 +51484,50 @@ Prefab:
       propertyPath: spawnpoints.Array.data[1]
       value: 
       objectReference: {fileID: 1810936228}
+    - target: {fileID: 1336103111684628, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865766584485500, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955075426098210, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489291397099432, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489291397099432, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865766584485500, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955075426098210, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489291397099432, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336103111684628, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315495956540762, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315495956540762, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
+      propertyPath: m_TagString
+      value: melee
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37a20f409bf6258498dd137e4a373ee1, type: 2}
   m_IsPrefabAsset: 0

@@ -616,9 +616,9 @@ GameObject:
   - component: {fileID: 23769930773653000}
   - component: {fileID: 135041896656551712}
   - component: {fileID: 114859648858871032}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (2)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1523,9 +1523,10 @@ GameObject:
   - component: {fileID: 114618785457428326}
   - component: {fileID: 82070865410951850}
   - component: {fileID: 82721996981851108}
-  m_Layer: 0
+  - component: {fileID: 65876912112381298}
+  m_Layer: 13
   m_Name: m01_apron_00_h
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1557,9 +1558,9 @@ GameObject:
   - component: {fileID: 23129316168831498}
   - component: {fileID: 135907178508357954}
   - component: {fileID: 114134372346743184}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1666,9 +1667,9 @@ GameObject:
   - component: {fileID: 23354665371259508}
   - component: {fileID: 135786905707866858}
   - component: {fileID: 114171838721090264}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (3)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1736,9 +1737,9 @@ GameObject:
   - component: {fileID: 23749936725820772}
   - component: {fileID: 135665964705627038}
   - component: {fileID: 114491281723732018}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCollider (1)
-  m_TagString: Untagged
+  m_TagString: melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2427,7 +2428,7 @@ Transform:
   m_LocalRotation: {x: -0.000000005238688, y: -0.0000000010248925, z: -0.000012293441,
     w: 1}
   m_LocalPosition: {x: 0, y: -0.05, z: 0.048}
-  m_LocalScale: {x: 0.10000054, y: 0.1000003, z: 0.10000054}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4601786720454310}
   m_RootOrder: 1
@@ -3639,7 +3640,7 @@ Transform:
   m_LocalRotation: {x: -0.000000012220821, y: -7.275956e-11, z: -0.000000032734196,
     w: 1}
   m_LocalPosition: {x: -0.085, y: 0, z: 0}
-  m_LocalScale: {x: 0.10000157, y: 0.10000128, z: 0.10000159}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4471269069043402}
   m_RootOrder: 6
@@ -3889,7 +3890,7 @@ Transform:
   m_GameObject: {fileID: 1774353719845330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.071, y: 0, z: -0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4779681988794058}
   m_RootOrder: 6
@@ -4200,7 +4201,7 @@ Transform:
   m_LocalRotation: {x: -0.000000005122273, y: 0.0000000010288974, z: -0.000012293455,
     w: 1}
   m_LocalPosition: {x: -0, y: -0.05, z: 0.059}
-  m_LocalScale: {x: 0.10000053, y: 0.1000003, z: 0.10000054}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4047891517425910}
   m_RootOrder: 1
@@ -4580,6 +4581,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.9269164}
   m_Center: {x: -0.000000016090619, y: 0.000000021898863, z: 0.96345454}
+--- !u!65 &65876912112381298
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750908359555580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53, y: 1.8, z: 0.45}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!76 &76537919842032584
 WorldParticleCollider:
   m_ObjectHideFlags: 1
@@ -5008,6 +5021,7 @@ MonoBehaviour:
   health: 100
   health2: 100
   jumpForce: 3.5
+  isAttacking: 0
   lightningEffect: {fileID: 1539774664989032, guid: 575ae454249f81e46a5301e88cc15aaf,
     type: 2}
   Player: {fileID: 1815738368957180}

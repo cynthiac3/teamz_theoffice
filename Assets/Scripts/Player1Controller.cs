@@ -312,9 +312,10 @@ public class Player1Controller : MonoBehaviour
             print(cameras.Length);
             GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
             showPlayer(false);
-            GameObject.Find("Canvas2").SetActive(false);
+            GameObject.Find("Canvas").SetActive(false);
             GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
            
+
         }
        
     }

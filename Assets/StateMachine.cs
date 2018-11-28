@@ -5,7 +5,7 @@ using UnityEngine;
 public class StateMachine : StateMachineBehaviour
 {
 
-
+    public bool isAttacking = false;
     string previousState = "none";
     string currentState = "none";
     string run = "Player_Run";
@@ -34,6 +34,10 @@ public class StateMachine : StateMachineBehaviour
         if (previousState.Equals(jump) && currentState.Equals(run))
             FindObjectOfType<PlayerModelFlip>().Footstep();
 
+        if (stateInfo.IsTag("attack"))
+            animator.transform.parent.GetComponent<Player1Controller>().isAttacking = true;
+        else
+            animator.transform.parent.GetComponent<Player1Controller>().isNotAttacking();
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine

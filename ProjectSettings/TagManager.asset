@@ -17,6 +17,7 @@ TagManager:
   - PickUpItem
   - Projectile
   - ElecHazard
+  - melee
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - P2View
   - Corner
   - Foam
-  - 
+  - HitCollider
   - 
   - 
   - 

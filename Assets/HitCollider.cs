@@ -9,9 +9,12 @@ public class HitCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Transform>().tag == "Player")
+
+        if (other.GetComponent<Transform>().tag == "melee" && GetComponentInParent<Player1Controller>().isAttacking)
         {
-            other.GetComponent<Player1Controller>().getPunched();
+            other.GetComponentInParent<Player1Controller>().getPunched();
         }
     }
+
+  
 }

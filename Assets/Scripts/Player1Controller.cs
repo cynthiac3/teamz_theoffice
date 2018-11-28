@@ -50,6 +50,7 @@ public class Player1Controller : MonoBehaviour
     public float jumpForce;
     bool grounded;
     float xPosition;
+    public bool isAttacking;
 
     // For electrical hazard
     public GameObject lightningEffect;
@@ -121,6 +122,7 @@ public class Player1Controller : MonoBehaviour
         isUsingRoofTopDoor = false;
         holding = false;
         heldVers = -1;
+        isAttacking = false;
 
     }
 
@@ -347,6 +349,10 @@ public class Player1Controller : MonoBehaviour
     {
         SceneManager.LoadScene("Menu3");
     }
+    
+    public void isNotAttacking() { Invoke("turnOffAttacking", 0.5f); }
+
+    void turnOffAttacking() { isAttacking = false; }
 
     public void getPunched()
     {

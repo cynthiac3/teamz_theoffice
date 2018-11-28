@@ -17,8 +17,8 @@ public class Sprinklers : MonoBehaviour {
         //first set of sprinklers are built into the scene(on 2nd floor)
         //the rest are instantiated using a y displacement for each floor
         float ydisplacement = 2.8f;
-        sprinklerArr = new GameObject[7];
-        for (int i = 0; i < 7; i++)
+        sprinklerArr = new GameObject[8];
+        for (int i = 0; i < 8; i++)
         {
             sprinklerArr[i] = Instantiate(sprinklersOrg, new Vector3(1, ydisplacement, 1), Quaternion.identity);
             ydisplacement += 1.8f;

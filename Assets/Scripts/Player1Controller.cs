@@ -72,6 +72,11 @@ public class Player1Controller : MonoBehaviour
     //Player Floor
     public Text PlayerFloor;
 
+    // For extinguisher
+    public GameObject extinguisherPrefab;
+    // For respawning
+    public GameObject[] spawnpoints;
+
 
     public void PlayerHasKey(bool i)
     {
@@ -167,8 +172,6 @@ public class Player1Controller : MonoBehaviour
                 jump();
 
 
-
-
             // set animations based on speed and if grounded
             animations();
 
@@ -230,6 +233,11 @@ public class Player1Controller : MonoBehaviour
                 }
             }
 
+            if (health<=0 || health2<=0)
+            {
+                Die();
+            }
+            //  Input.GetKey(KeyCode.I)
         }
 
     }
@@ -243,30 +251,27 @@ public class Player1Controller : MonoBehaviour
             center.z = 0;
         }
 
-        if (other.tag.Equals(fireTriggerTag))     // Touching a fire
+        if (other.tag.Equals(fireTriggerTag))     // Touching a fire (DAMAGE)
         {
-            // how much the character should be knocked back
-            var magnitude = 100;
-            // calculate force vector
-            var force = transform.position - other.transform.position;
-            // normalize force vector to get direction only and trim magnitude
-            force.Normalize();
-            mRigidbody.AddForce(force * magnitude);
+            loseHealth(40);
         }
 
         if (other.tag.Equals(extinguisherTriggerTag))   // Touching an extinguisher
-        {           
-            other.gameObject.GetComponent<PickUpObject>().destroyItem();
-            transform.GetChild(1).gameObject.SetActive(true);
+        {
+            if (!transform.GetChild(1).gameObject.active)
+            {
+                other.gameObject.GetComponent<PickUpObject>().destroyItem();
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
         }
     
-        if (other.tag.Equals("ElecHazard"))   // Touching an electrical object
+        if (other.tag.Equals("ElecHazard"))   // Touching an electrical object (DAMAGE)
         {
             Destroy(other.gameObject.GetComponent<SphereCollider>()); // remove the collider so item stays there but doesn't affect anymore
             Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
-            health -= 10;
             anim.Play("Player_Hit");
             transform.GetComponent<AudioSource>().Play();
+            loseHealth(20);
         }
 
         if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
@@ -377,9 +382,9 @@ public class Player1Controller : MonoBehaviour
         {
             //Debug.Log("I'M HIT!!!!!");
             Destroy(other.gameObject);
-            health -= 5;
             anim.Play("Player_Hit");
             transform.GetComponent<AudioSource>().Play();
+            loseHealth(10);
         }
 
         //NOTE: error being thrown if the collision isn't a floor (other collisions don't always have "parents")
@@ -560,6 +565,43 @@ public class Player1Controller : MonoBehaviour
     private void respawn()
     {
         changeFLoorBy(-currentFloor + 1);
+    }
+
+    void Die()
+    {
+        hasKey = false; // TODO: FIX WITH NATHAN'S CODE
+        // Drop extinguisher if holding one
+        if (transform.GetChild(1).gameObject.active)
+        {
+            transform.GetChild(1).gameObject.SetActive(false);
+            Instantiate(extinguisherPrefab, transform.position + new Vector3(1, 0, 0), Quaternion.Euler(-90, 0, 0));
+        }
+        // remove pick up item
+        holding = false;
+        // Respawn
+        if (playerNum == 1){
+            transform.position = spawnpoints[0].transform.position;
+            health = 100;
+            healthBar.UpdateBar(health, 100);
+        }
+        else {
+            transform.position = spawnpoints[1].transform.position;
+            health2 = 100;
+            healthBar.UpdateBar(health2, 100);
+        }
+    }
+
+    void loseHealth(int damage) {
+        if (playerNum == 1)
+        {
+            health -= damage;
+            healthBar.UpdateBar(health, 100);
+        }
+        else
+        {
+            health2 -= damage;
+            healthBar.UpdateBar(health2, 100);
+        }
     }
 
 } // end of class

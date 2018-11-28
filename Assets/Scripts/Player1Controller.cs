@@ -232,6 +232,18 @@ public class Player1Controller : MonoBehaviour
                     thrownBody.velocity = -transform.forward * 25;
                 }
             }
+            else if (Input.GetButtonDown("Throw" + playerNum) && !holding)
+            {
+                //attack
+                int rand = Random.Range(0, 3);
+                if (rand == 0)
+                    anim.Play("punch_20");
+                else if (rand == 1)
+                    anim.Play("Player_Punch");
+                else
+                    anim.Play("Player_Kick");
+
+            }
 
             if (health<=0 || health2<=0)
             {
@@ -300,6 +312,13 @@ public class Player1Controller : MonoBehaviour
             atRooftopDoor = true;
         }
 
+    }
+
+    public void getPunched()
+    {
+        anim.Play("Player_Hit");
+        transform.GetComponent<AudioSource>().Play();
+        loseHealth(10);
     }
 
     bool isGrounded()

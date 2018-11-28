@@ -604,5 +604,22 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
+
+    // Called when foam collides with fire bc the parent (the player) counts it as a collision with parent
+    // and loses health
+    public void fixHealth() {
+        if (playerNum == 1)
+        {
+            health += 40;
+            healthBar.UpdateBar(health, 100);
+        }
+        else
+        {
+            health2 += 40;
+            healthBar.UpdateBar(health2, 100);
+        }
+
+    }
+
 } // end of class
 

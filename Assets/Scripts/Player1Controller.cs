@@ -56,7 +56,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=false;
+    bool hasKey=true;
 
 
     // Healthbar
@@ -300,6 +300,20 @@ public class Player1Controller : MonoBehaviour
             atRooftopDoor = true;
         }
 
+        if (other.tag.Equals("cutscene"))
+        {
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            cameras[0].enabled = true;
+            cameras[1].enabled = false;
+            cameras[2].enabled = false;
+            print(cameras.Length);
+            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = Vector3.up;
+            showPlayer(false);
+            GameObject.Find("Canvas").SetActive(false);
+            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 2, -1);
+           
+        }
+       
     }
 
     bool isGrounded()
@@ -589,6 +603,10 @@ public class Player1Controller : MonoBehaviour
             health2 = 100;
             healthBar.UpdateBar(health2, 100);
         }
+    }
+    void end()
+    {
+
     }
 
     void loseHealth(int damage) {

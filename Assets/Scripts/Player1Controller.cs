@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class Player1Controller : MonoBehaviour
 
     //Player Floor
     public Text PlayerFloor;
+    public GameObject endCanvas;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
@@ -185,6 +187,7 @@ public class Player1Controller : MonoBehaviour
                         mRigidbody.detectCollisions = false;
                         showPlayer(false);
                         isUsingRoofTopDoor = true;
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                     }       
                 }
             }
@@ -209,6 +212,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
+                    mRigidbody.constraints = RigidbodyConstraints.None;
                 }
             }
 
@@ -312,9 +316,23 @@ public class Player1Controller : MonoBehaviour
             showPlayer(false);
             GameObject.Find("Canvas").SetActive(false);
             GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
-           
+
+            endCanvas.gameObject.SetActive(true);
+            string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+            text = text.Replace("0", playerNum.ToString());
+            endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+            Invoke("loadScene", 5.0f);
+
+
+
         }
        
+    }
+
+    void loadScene()
+    {
+        SceneManager.LoadScene("Menu3");
     }
 
     bool isGrounded()
@@ -605,7 +623,7 @@ public class Player1Controller : MonoBehaviour
             healthBar.UpdateBar(health2, 100);
         }
     }
-    
+
     void loseHealth(int damage) {
         if (playerNum == 1)
         {

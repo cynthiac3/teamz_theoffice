@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -320,10 +321,16 @@ public class Player1Controller : MonoBehaviour
             text = text.Replace("0", playerNum.ToString());
             endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
 
+            Invoke("loadScene", 5.0f);
 
 
         }
        
+    }
+
+    void loadScene()
+    {
+        SceneManager.LoadScene("Menu3");
     }
 
     bool isGrounded()

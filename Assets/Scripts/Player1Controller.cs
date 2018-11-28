@@ -318,12 +318,12 @@ public class Player1Controller : MonoBehaviour
 
         if (other.tag.Equals("cutscene"))
         {
+            other.GetComponent<Collider>().enabled = false;
             Camera[] cameras = FindObjectsOfType<Camera>();
             cameras[0].enabled = false;
             cameras[1].enabled = false;
             cameras[2].enabled = false;
             GameObject.Find("cutSceneCam").GetComponent<Camera>().enabled = true;
-            print(cameras.Length);
             GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
             showPlayer(false);
             GameObject.Find("Canvas").SetActive(false);
@@ -335,8 +335,6 @@ public class Player1Controller : MonoBehaviour
             endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
 
             Invoke("loadScene", 5.0f);
-
-
 
         }
        

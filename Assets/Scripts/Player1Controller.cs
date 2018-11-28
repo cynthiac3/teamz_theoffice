@@ -56,6 +56,9 @@ public class Player1Controller : MonoBehaviour
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
     bool hasKey=false;
 
+    // For extinguisher
+    public GameObject extinguisherPrefab;
+
     public static void StartGame()
     {
         gameStart = true;
@@ -85,6 +88,11 @@ public class Player1Controller : MonoBehaviour
     {
         if (gameStart && !stunned)
         {
+            if (Input.GetKey(KeyCode.I)) {
+                Die();
+            }
+
+
             float inputHorizontal = Input.GetAxis("Horizontal" + playerNum);
             if (inputHorizontal != 0)
             {
@@ -497,7 +505,23 @@ public class Player1Controller : MonoBehaviour
 
     private void respawn()
     {
-        changeFLoorBy(-currentFloor + 1);
+        changeFLoorBy(-currentFloor + 2);
+    }
+
+    void Die() {
+       
+        hasKey = false; // TODO: FIX WITH NATHAN'S CODE
+        // Drop extinguisher if holding one
+        if (transform.GetChild(1).gameObject.active) {
+            transform.GetChild(1).gameObject.SetActive(false);
+            Instantiate(extinguisherPrefab, transform.position + new Vector3(1,0,0), Quaternion.Euler(-90,0,0));
+
+        }
+        // remove pick up item
+        holding = false;
+
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
     }
 
 } // end of class

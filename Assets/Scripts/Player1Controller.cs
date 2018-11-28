@@ -71,6 +71,7 @@ public class Player1Controller : MonoBehaviour
 
     //Player Floor
     public Text PlayerFloor;
+    public GameObject endCanvas;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
@@ -314,7 +315,12 @@ public class Player1Controller : MonoBehaviour
             showPlayer(false);
             GameObject.Find("Canvas").SetActive(false);
             GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
-           
+            endCanvas.gameObject.SetActive(true);
+            string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+            text = text.Replace("0", playerNum.ToString());
+            endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+
 
         }
        

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=false;
+    bool hasKey=true;
 
 
     // Healthbar
@@ -71,6 +72,7 @@ public class Player1Controller : MonoBehaviour
 
     //Player Floor
     public Text PlayerFloor;
+    public GameObject endCanvas;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
@@ -185,6 +187,7 @@ public class Player1Controller : MonoBehaviour
                         mRigidbody.detectCollisions = false;
                         showPlayer(false);
                         isUsingRoofTopDoor = true;
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                     }       
                 }
             }
@@ -209,6 +212,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
+                    mRigidbody.constraints = RigidbodyConstraints.None;
                 }
             }
 
@@ -312,6 +316,35 @@ public class Player1Controller : MonoBehaviour
             atRooftopDoor = true;
         }
 
+        if (other.tag.Equals("cutscene"))
+        {
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            cameras[0].enabled = false;
+            cameras[1].enabled = false;
+            cameras[2].enabled = false;
+            GameObject.Find("cutSceneCam").GetComponent<Camera>().enabled = true;
+            print(cameras.Length);
+            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
+            showPlayer(false);
+            GameObject.Find("Canvas").SetActive(false);
+            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
+
+            endCanvas.gameObject.SetActive(true);
+            string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+            text = text.Replace("0", playerNum.ToString());
+            endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+            Invoke("loadScene", 5.0f);
+
+
+
+        }
+       
+    }
+
+    void loadScene()
+    {
+        SceneManager.LoadScene("Menu3");
     }
 
     public void getPunched()

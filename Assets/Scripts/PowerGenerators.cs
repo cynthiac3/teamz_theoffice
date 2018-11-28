@@ -18,7 +18,7 @@ public class PowerGenerators : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        float yDisplacement = 0;
+        float yDisplacement = 1.8f;
         int genVariant = Random.Range(0, 2);
 
         for (int i = 0; i < 5; i++)

@@ -303,14 +303,15 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals("cutscene"))
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
-            cameras[0].enabled = true;
+            cameras[0].enabled = false;
             cameras[1].enabled = false;
             cameras[2].enabled = false;
+            GameObject.Find("cutSceneCam").GetComponent<Camera>().enabled = true;
             print(cameras.Length);
-            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = Vector3.up;
+            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
             showPlayer(false);
             GameObject.Find("Canvas").SetActive(false);
-            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 2, -1);
+            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
            
         }
        
@@ -604,11 +605,7 @@ public class Player1Controller : MonoBehaviour
             healthBar.UpdateBar(health2, 100);
         }
     }
-    void end()
-    {
-
-    }
-
+    
     void loseHealth(int damage) {
         if (playerNum == 1)
         {

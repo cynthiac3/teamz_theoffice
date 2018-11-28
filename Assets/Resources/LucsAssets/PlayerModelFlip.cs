@@ -86,7 +86,7 @@ public class PlayerModelFlip : MonoBehaviour {
 
     }
 
-    void Footstep()
+    public void Footstep()
     {
         if (Random.Range(0, 2) == 0)
             step1.Play();

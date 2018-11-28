@@ -64,7 +64,6 @@ public class Player1Controller : MonoBehaviour
         gameStart = true;
     }
 
-
     private void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
@@ -157,7 +156,7 @@ public class Player1Controller : MonoBehaviour
             }
 
             // Moving to rooftop
-            if (isUsingRoofTopDoor)
+            if (isUsingRoofTopDoor && hasKey == true)
             {
 
                 if (Mathf.Abs(mRigidbody.position.y - roofPosition.y) > 0.1)
@@ -246,6 +245,23 @@ public class Player1Controller : MonoBehaviour
             heldVers = obj.versionIndex;
             //Debug.Log("Picked up item " + heldVers);
             obj.destroyItem();
+        }
+
+        if (other.tag.Equals("Key"))
+        {
+            Debug.Log("Key picked up");
+            hasKey = true;
+            Destroy(other.gameObject);
+        }
+        
+        if (other.tag.Equals("Donut"))
+        {
+            Debug.Log("Speed Boost");
+            StartCoroutine("BoostP1");
+            StartCoroutine("BoostP2");
+
+
+            Destroy(other.gameObject);
         }
 
         //collision to allow interaction with a fire alarm

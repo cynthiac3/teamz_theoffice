@@ -17,6 +17,7 @@ TagManager:
   - PickUpItem
   - Projectile
   - ElecHazard
+  - Donut
   layers:
   - Default
   - TransparentFX

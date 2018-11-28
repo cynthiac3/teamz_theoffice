@@ -29,9 +29,10 @@ GameObject:
   - component: {fileID: 114548879797438748}
   - component: {fileID: 114394156190459986}
   - component: {fileID: 65793889753523220}
+  - component: {fileID: 114684050995389194}
   m_Layer: 0
   m_Name: key_gold
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,4 +166,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee138fa84c4b614b93d8993c440be7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 20
+  lifetime: 25
+--- !u!114 &114684050995389194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5ed7cada1bd6146817c780dde81272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torqueDir: {x: 1, y: 0, z: 0}
+  pickupInd: {fileID: 1169827228596926, guid: 9c34cf3cd93cca84ea1d8e3be0284a72, type: 2}
+  versionIndex: 0

@@ -173,7 +173,7 @@ public class Player1Controller : MonoBehaviour
             // Activate fire extinguisher spray
             if (transform.GetChild(1).gameObject.activeInHierarchy)
             {
-                if (Input.GetButtonDown("Extinguisher" + playerNum))
+                if (!corner && Input.GetButtonDown("Extinguisher" + playerNum))
                 {
                     transform.GetChild(2).gameObject.SetActive(true);
 
@@ -292,6 +292,7 @@ public class Player1Controller : MonoBehaviour
             corner = true;
             center = transform.position;
             center.z = 0;
+            transform.GetChild(2).gameObject.SetActive(false);
         }
 
         if (other.tag.Equals(fireTriggerTag))     // Touching a fire (DAMAGE)

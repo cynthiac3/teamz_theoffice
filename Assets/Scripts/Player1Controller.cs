@@ -347,7 +347,7 @@ public class Player1Controller : MonoBehaviour
 
     void loadScene()
     {
-        SceneManager.LoadScene("Menu3");
+        SceneManager.LoadScene("Menu");
     }
     
     public void isNotAttacking() { Invoke("turnOffAttacking", 0.5f); }

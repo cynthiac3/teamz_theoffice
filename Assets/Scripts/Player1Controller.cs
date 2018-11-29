@@ -90,6 +90,8 @@ public class Player1Controller : MonoBehaviour
     // For respawning
     public GameObject[] spawnpoints;
 
+    private RigidbodyConstraints originalConstraint;
+
 
     public void PlayerHasKey(bool i)
     {
@@ -129,7 +131,7 @@ public class Player1Controller : MonoBehaviour
         holding = false;
         heldVers = -1;
         isAttacking = false;
-
+        originalConstraint = mRigidbody.constraints;
     }
 
     private void Update()
@@ -598,7 +600,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
-                    mRigidbody.constraints = RigidbodyConstraints.None;
+                    mRigidbody.constraints = originalConstraint;
 
                     if(died)
                     {

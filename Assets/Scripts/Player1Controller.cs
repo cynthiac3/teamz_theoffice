@@ -250,6 +250,7 @@ public class Player1Controller : MonoBehaviour
                     Rigidbody thrownBody = thrown.GetComponent<Rigidbody>();
                     thrownBody.velocity = -transform.forward * 25;
                 }
+                PlayerHasItem(false);
             }
             else if (Input.GetButtonDown("Throw" + playerNum) && !holding)
             {

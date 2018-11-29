@@ -59,7 +59,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=true;
+    bool hasKey=false;
 
 
     // Healthbar
@@ -347,7 +347,7 @@ public class Player1Controller : MonoBehaviour
 
     void loadScene()
     {
-        SceneManager.LoadScene("Menu3");
+        SceneManager.LoadScene("Menu");
     }
     
     public void isNotAttacking() { Invoke("turnOffAttacking", 0.5f); }

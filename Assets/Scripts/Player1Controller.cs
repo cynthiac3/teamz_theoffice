@@ -90,6 +90,9 @@ public class Player1Controller : MonoBehaviour
     // For respawning
     public GameObject[] spawnpoints;
 
+    // Audio
+    AudioSource[] sounds;
+
 
     public void PlayerHasKey(bool i)
     {
@@ -114,6 +117,7 @@ public class Player1Controller : MonoBehaviour
 
     private void Start()
     {
+        sounds = GetComponents<AudioSource>();
         mRigidbody = GetComponent<Rigidbody>();
         raduis = Mathf.Abs(transform.position.z);
         angularVelocity = velocity / (2 * raduis);
@@ -250,6 +254,13 @@ public class Player1Controller : MonoBehaviour
             else if (Input.GetButtonDown("Throw" + playerNum) && !holding)
             {
                 //attack
+                int rand = Random.Range(0, 2);
+                if (rand == 0)
+                    anim.Play("Player_Punch");
+                else if (rand == 1)
+                    anim.Play("Player_Kick");
+                    
+                /*
                 int rand = Random.Range(0, 3);
                 if (rand == 0)
                     anim.Play("punch_20");
@@ -257,6 +268,7 @@ public class Player1Controller : MonoBehaviour
                     anim.Play("Player_Punch");
                 else
                     anim.Play("Player_Kick");
+                    */
 
             }
 
@@ -284,6 +296,7 @@ public class Player1Controller : MonoBehaviour
 
         if (other.tag.Equals(fireTriggerTag))     // Touching a fire (DAMAGE)
         {
+            sounds[0].Play();
             loseHealth(40);
         }
 
@@ -302,7 +315,7 @@ public class Player1Controller : MonoBehaviour
             Destroy(other.gameObject.GetComponent<SphereCollider>()); // remove the collider so item stays there but doesn't affect anymore
             Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
             anim.Play("Player_Hit");
-            transform.GetComponent<AudioSource>().Play();
+            sounds[0].Play();
             loseHealth(20);
         }
 
@@ -460,7 +473,8 @@ public class Player1Controller : MonoBehaviour
     public void getPunched()
     {
         anim.Play("Player_Hit");
-        transform.GetComponent<AudioSource>().Play();
+       sounds[0].Play();
+        //transform.GetComponent<AudioSource>().Play();
         loseHealth(10);
     }
 
@@ -545,7 +559,8 @@ public class Player1Controller : MonoBehaviour
             //Debug.Log("I'M HIT!!!!!");
             Destroy(other.gameObject);
             anim.Play("Player_Hit");
-            transform.GetComponent<AudioSource>().Play();
+           sounds[0].Play();
+            //transform.GetComponent<AudioSource>().Play();
             loseHealth(10);
         }
 
@@ -827,6 +842,7 @@ public class Player1Controller : MonoBehaviour
 
     void Die() {
 
+        sounds[1].Play();
         hasKey = false; // TODO: FIX WITH NATHAN'S CODE
         PlayerHasItem(false);
         PlayerHasKey(false);

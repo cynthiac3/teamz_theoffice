@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public class Player1Controller : MonoBehaviour
     private bool isUsingElevator;
     private Vector3 newPosition;
     public int currentFloor;
+    public bool died;
 
     //for fire alarm "Trap"
     private const string alarmTag = "FireAlarm";
@@ -40,12 +43,14 @@ public class Player1Controller : MonoBehaviour
     public GameObject[] projectiles;
     private float facingDir;
     public int health = 100; //TEMPORARY HEALTH VARIABLE
+    public int health2 = 100; //TEMPORARY HEALTH VARIABLE
 
     // for animation() and jump()
     private Animator anim;
     public float jumpForce;
     bool grounded;
     float xPosition;
+    public bool isAttacking;
 
     // For electrical hazard
     public GameObject lightningEffect;
@@ -54,10 +59,53 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=false;
+    bool hasKey=true;
+
+
+    // Healthbar
+    public GameObject Player;
+    public SimpleHealthBar healthBar;
+    public Vector3 startLocation;
+
+    //items
+    public GameObject PlayerKey;
+    public GameObject FireExtinguisher;
+    public GameObject Item;
+
+    //Player Floor
+    public Text PlayerFloor;
+
+    //end Canvas
+    public GameObject endCanvas;
+
+    //for Cutscene;
+    public GameObject exterior;
+    public GameObject smoke;
+    public GameObject[] explosions;
+    private bool crumbling;
+    public static bool gameEnded = false;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
+    // For respawning
+    public GameObject[] spawnpoints;
+
+
+    public void PlayerHasKey(bool i)
+    {
+        PlayerKey.active = i;
+    }
+
+    public void PlayerHasExtinguisher(bool i)
+    {
+        FireExtinguisher.active = i;
+    }
+
+    public void PlayerHasItem(bool i)
+    {
+        Item.active = i;
+    }
+
 
     public static void StartGame()
     {
@@ -80,18 +128,16 @@ public class Player1Controller : MonoBehaviour
         isUsingRoofTopDoor = false;
         holding = false;
         heldVers = -1;
+        isAttacking = false;
 
     }
 
     private void Update()
     {
+
+        PlayerFloor.text = "Floor: " + currentFloor;
         if (gameStart && !stunned)
         {
-            if (Input.GetKey(KeyCode.I)) {
-                Die();
-            }
-
-
             float inputHorizontal = Input.GetAxis("Horizontal" + playerNum);
             if (inputHorizontal != 0)
             {
@@ -135,8 +181,9 @@ public class Player1Controller : MonoBehaviour
             }
 
             //jump when Button "Jump" is pressed
-            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded() && !isInfrontOfElevator(pos))
+            if (Input.GetButtonDown("Jump" + playerNum) && isGrounded())
                 jump();
+
 
             // set animations based on speed and if grounded
             animations();
@@ -151,6 +198,7 @@ public class Player1Controller : MonoBehaviour
                         mRigidbody.detectCollisions = false;
                         showPlayer(false);
                         isUsingRoofTopDoor = true;
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                     }       
                 }
             }
@@ -175,6 +223,7 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.useGravity = true;
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
+                    mRigidbody.constraints = RigidbodyConstraints.None;
                 }
             }
 
@@ -198,9 +247,30 @@ public class Player1Controller : MonoBehaviour
                     thrownBody.velocity = -transform.forward * 25;
                 }
             }
+            else if (Input.GetButtonDown("Throw" + playerNum) && !holding)
+            {
+                //attack
+                int rand = Random.Range(0, 3);
+                if (rand == 0)
+                    anim.Play("punch_20");
+                else if (rand == 1)
+                    anim.Play("Player_Punch");
+                else
+                    anim.Play("Player_Kick");
 
+            }
+
+            if (health<=0 || health2<=0)
+            {
+                Die();
+            }
+            //  Input.GetKey(KeyCode.I)
         }
-
+        if(crumbling)
+        {
+            Transform buildingTransf = GameObject.Find("Building").GetComponent<Transform>();
+            buildingTransf.position += new Vector3(Mathf.Sin(Time.time * 40.0f) * 0.1f, -0.04f, Mathf.Sin(Time.time * 40.0f) * 0.1f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -212,30 +282,27 @@ public class Player1Controller : MonoBehaviour
             center.z = 0;
         }
 
-        if (other.tag.Equals(fireTriggerTag))     // Touching a fire
+        if (other.tag.Equals(fireTriggerTag))     // Touching a fire (DAMAGE)
         {
-            // how much the character should be knocked back
-            var magnitude = 100;
-            // calculate force vector
-            var force = transform.position - other.transform.position;
-            // normalize force vector to get direction only and trim magnitude
-            force.Normalize();
-            mRigidbody.AddForce(force * magnitude);
+            loseHealth(40);
         }
 
         if (other.tag.Equals(extinguisherTriggerTag))   // Touching an extinguisher
-        {           
-            other.gameObject.GetComponent<PickUpObject>().destroyItem();
-            transform.GetChild(1).gameObject.SetActive(true);
+        {
+            if (!transform.GetChild(1).gameObject.active)
+            {
+                other.gameObject.GetComponent<PickUpObject>().destroyItem();
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
         }
     
-        if (other.tag.Equals("ElecHazard"))   // Touching an electrical object
+        if (other.tag.Equals("ElecHazard"))   // Touching an electrical object (DAMAGE)
         {
             Destroy(other.gameObject.GetComponent<SphereCollider>()); // remove the collider so item stays there but doesn't affect anymore
             Instantiate(lightningEffect, transform.position + new Vector3(-0.5f,0,0), Quaternion.identity);
-            health -= 10;
             anim.Play("Player_Hit");
             transform.GetComponent<AudioSource>().Play();
+            loseHealth(20);
         }
 
         if (other.tag.Equals("PickUpItem") && !holding)   // Touching an pick up item
@@ -293,13 +360,100 @@ public class Player1Controller : MonoBehaviour
         {
             atGenerator = true;
         }
-        
+
         //collision to allow interaction with rooftop door
         if (other.tag.Equals("Rooftop"))
         {
             atRooftopDoor = true;
         }
 
+        if (other.tag.Equals("cutscene"))
+        {
+            other.GetComponent<Collider>().enabled = false;
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            cameras[0].enabled = false;
+            cameras[1].enabled = false;
+            cameras[2].enabled = false;
+
+            showPlayer(false);
+            gameEnded = true;
+           
+            GameObject.Find("Canvas").SetActive(false);
+            Instantiate(exterior, GameObject.Find("Building").GetComponent<Transform>());
+            Instantiate(smoke, GameObject.Find("Building").GetComponent<Transform>());
+            StartCoroutine(Ending());
+        }
+       
+    }
+
+    public IEnumerator Ending()
+    {
+        Camera cineCam = GameObject.Find("cutSceneCam").GetComponent<Camera>();
+        cineCam.enabled = true;
+        Rigidbody heliRb = GameObject.Find("Helicopter").GetComponent<Rigidbody>();
+        heliRb.velocity = new Vector3(0, 1.0f, 0);
+
+        //destroying all indicators and sprinklers
+        GameObject[] erasedIndicators = GameObject.FindGameObjectsWithTag("indicatorCircle");
+        for(int i = 0; i < erasedIndicators.Length; i++)
+        {
+            Destroy(erasedIndicators[i]);
+        }
+
+        Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
+        camBody.velocity = new Vector3(-1, 2, -0.5f);
+
+        yield return new WaitForSeconds(3);
+        //heliRb = GameObject.Find("Helicopter").GetComponent<Rigidbody>();
+        heliRb.velocity += new Vector3(5, 0, 0);
+
+        //tilting the helicopter (without using Update function)
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+
+        yield return new WaitForSeconds(3);
+        camBody.velocity += new Vector3(0, -1, 2);
+        camBody.transform.position += new Vector3(-12, -10, 2);
+        camBody.transform.LookAt(GameObject.Find("Building").GetComponent<Transform>(), transform.up);
+        Instantiate(explosions[0], GameObject.Find("Building").GetComponent<Transform>());
+        yield return new WaitForSeconds(2);
+        crumbling = true;
+        Instantiate(explosions[1], GameObject.Find("Building").GetComponent<Transform>());
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(explosions[2], GameObject.Find("Building").GetComponent<Transform>());
+        endCanvas.gameObject.SetActive(true);
+        string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+        text = text.Replace("0", playerNum.ToString());
+        endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+        Invoke("loadScene", 5.0f);
+    }
+
+
+    void loadScene()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    
+    public void isNotAttacking() { Invoke("turnOffAttacking", 0.5f); }
+
+    void turnOffAttacking() { isAttacking = false; }
+
+    public void getPunched()
+    {
+        anim.Play("Player_Hit");
+        transform.GetComponent<AudioSource>().Play();
+        loseHealth(10);
     }
 
     bool isGrounded()
@@ -382,9 +536,9 @@ public class Player1Controller : MonoBehaviour
         {
             //Debug.Log("I'M HIT!!!!!");
             Destroy(other.gameObject);
-            health -= 5;
             anim.Play("Player_Hit");
             transform.GetComponent<AudioSource>().Play();
+            loseHealth(10);
         }
 
         //NOTE: error being thrown if the collision isn't a floor (other collisions don't always have "parents")
@@ -408,12 +562,16 @@ public class Player1Controller : MonoBehaviour
             {
                 if (isInfrontOfElevator(mRigidbody.position) && GameManager.e[currentFloor - 1].state == GameManager.Elevator.State.OPEN)
                 {
-                    useElevator();
                     isUsingElevator = true;
-                    mRigidbody.useGravity = false;
-                    mRigidbody.detectCollisions = false;
-                    showPlayer(false);
-                    mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+                    useElevator(false);
+                
+                    if (isUsingElevator)
+                    {
+                        mRigidbody.useGravity = false;
+                        mRigidbody.detectCollisions = false;
+                        showPlayer(false);
+                        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+                    }
                 }
             }
             if(isUsingElevator)
@@ -436,6 +594,22 @@ public class Player1Controller : MonoBehaviour
                     mRigidbody.detectCollisions = true;
                     showPlayer(true);
                     mRigidbody.constraints = RigidbodyConstraints.None;
+
+                    if(died)
+                    {
+                     //Respawn
+                        if (playerNum == 1){
+                            transform.position = spawnpoints[0].transform.position;
+                            health = 100;
+                            healthBar.UpdateBar(health, 100);
+                        }
+                        else {
+                            transform.position = spawnpoints[1].transform.position;
+                            health2 = 100;
+                            healthBar.UpdateBar(health2, 100);
+                        }
+                        died = false;
+                    }
                  }
             }
         
@@ -463,36 +637,59 @@ public class Player1Controller : MonoBehaviour
         return currentFloor;
     }
 
-    private void useElevator(){
+    private void useElevator(bool die){
         GameManager.elevators[currentFloor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[currentFloor-1].state = GameManager.Elevator.State.CLOSED;
         float random = Random.value;
+        int randomChangeFloor = getRandomChangeFloor();
         int oldFloor = currentFloor;
         int newFLoor = 0;
+
+        if(die)
+        {
+            random = 0.6f;
+            randomChangeFloor = currentFloor - 2;
+        }
 
         if(random < 0.5)
         {
             if (currentFloor == 10)
             {
-                changeFLoorBy(-1);
-                newFLoor = oldFloor - 1;
-                print("down 1 floor");
+                changeFLoorBy(-randomChangeFloor);
+                newFLoor = oldFloor - randomChangeFloor;
+                print("down " + randomChangeFloor + " floor");
             }
             else
             {
-                changeFLoorBy(1);
-                newFLoor = oldFloor + 1;
-                print("up 1 floor");
+                if(currentFloor + randomChangeFloor > 10)
+                {
+                    randomChangeFloor = 10 - currentFloor;
+                }
+                    
+                changeFLoorBy(randomChangeFloor);
+                newFLoor = oldFloor + randomChangeFloor;
+                print("up " + randomChangeFloor + " floor");
             }
         }
-        else if(random < 0.7)
+        else if(random < 7.0)
         {
-            if (currentFloor != 1)
+            if (currentFloor - randomChangeFloor < 2)
             {
-                changeFLoorBy(-1);
-                newFLoor = oldFloor - 1;
+                randomChangeFloor = currentFloor - 2;
             }
-            print("down 1 floor");
+
+            if (currentFloor != 2)
+            {
+                changeFLoorBy(-randomChangeFloor);
+            }
+            else{
+                isUsingElevator = false;
+            }
+
+
+            newFLoor = oldFloor - randomChangeFloor;
+            print("down " + randomChangeFloor + " floor");
+           
         }
         else{
             Player1Controller otherPlayer;
@@ -512,8 +709,49 @@ public class Player1Controller : MonoBehaviour
             print("oponent floor");
         }
 
+        showNumber(newFLoor - oldFloor);
+        Invoke("removeNumber", 2);
         GameManager.elevators[newFLoor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
+    }
+
+    private void showNumber(int diff)
+    {
+        GameObject panel;
+        if(playerNum == 1)
+        {
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
+        }
+        else
+        {
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
+        }
+
+        GameObject movement = panel.transform.Find("elevatorMovement").gameObject;
+        movement.SetActive(true);
+        if (diff > 0)
+            movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        else
+            movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+        movement.transform.GetChild(0).transform.GetComponent<Text>().text = Mathf.Abs(diff).ToString();
+    }
+
+    private void removeNumber()
+    {
+        GameObject panel;
+        if (playerNum == 1)
+        {
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
+        }
+        else
+        {
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
+        }
+        panel.transform.Find("elevatorMovement").gameObject.SetActive(false);
+    }
+
+    private int getRandomChangeFloor(){
+        return ((int)(Random.value * 10 + 1)) % 4 + 1;
     }
 
     //getter for use in "Sprinklers.cs"
@@ -540,9 +778,10 @@ public class Player1Controller : MonoBehaviour
 
     private void respawn()
     {
-        changeFLoorBy(-currentFloor + 2);
+        changeFLoorBy(-currentFloor + 1);
     }
 
+<<<<<<< HEAD
     public void Heal()
     {
         if(playerNum != 1 && health < 100)
@@ -583,17 +822,71 @@ public class Player1Controller : MonoBehaviour
 
     void Die() {
        
+=======
+    void Die()
+    {
+>>>>>>> 86dbe71bd05b0390cf9b3c886682135e5598fa06
         hasKey = false; // TODO: FIX WITH NATHAN'S CODE
         // Drop extinguisher if holding one
-        if (transform.GetChild(1).gameObject.active) {
+        if (transform.GetChild(1).gameObject.active)
+        {
             transform.GetChild(1).gameObject.SetActive(false);
-            Instantiate(extinguisherPrefab, transform.position + new Vector3(1,0,0), Quaternion.Euler(-90,0,0));
-
+            Instantiate(extinguisherPrefab, transform.position + new Vector3(1, 0, 0), Quaternion.Euler(-90, 0, 0));
         }
         // remove pick up item
         holding = false;
+        // Respawn
+        //if (playerNum == 1){
+        //    transform.position = spawnpoints[0].transform.position;
+        //    health = 100;
+        //    healthBar.UpdateBar(health, 100);
+        //}
+        //else {
+        //    transform.position = spawnpoints[1].transform.position;
+        //    health2 = 100;
+        //    healthBar.UpdateBar(health2, 100);
+        //}
+        isUsingElevator = true;
+        useElevator(true);
+        if(playerNum == 1)
+            mRigidbody.transform.position = new Vector3(spawnpoints[0].transform.position.x, mRigidbody.transform.position.y,mRigidbody.transform.position.z);
+        else
+            mRigidbody.transform.position = new Vector3(spawnpoints[1].transform.position.x, mRigidbody.transform.position.y, mRigidbody.transform.position.z);
 
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        mRigidbody.useGravity = false;
+        mRigidbody.detectCollisions = false;
+        showPlayer(false);
+        mRigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+        died = true;
+    }
+
+    void loseHealth(int damage) {
+        if (playerNum == 1)
+        {
+            health -= damage;
+            healthBar.UpdateBar(health, 100);
+        }
+        else
+        {
+            health2 -= damage;
+            healthBar.UpdateBar(health2, 100);
+        }
+    }
+
+
+    // Called when foam collides with fire bc the parent (the player) counts it as a collision with parent
+    // and loses health
+    public void fixHealth() {
+        if (playerNum == 1)
+        {
+            health += 40;
+            healthBar.UpdateBar(health, 100);
+        }
+        else
+        {
+            health2 += 40;
+            healthBar.UpdateBar(health2, 100);
+        }
 
     }
 

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        for (int i = 0; i < e.Length; ++i)
+        for (int i = 1; i < e.Length; ++i)
         {
             if(e[i].state == Elevator.State.CLOSED)
             {

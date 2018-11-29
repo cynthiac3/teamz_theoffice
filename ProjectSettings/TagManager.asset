@@ -17,8 +17,14 @@ TagManager:
   - PickUpItem
   - Projectile
   - ElecHazard
+<<<<<<< HEAD
   - Donut
   - MedKit
+=======
+  - melee
+  - cutscene
+  - indicatorCircle
+>>>>>>> 86dbe71bd05b0390cf9b3c886682135e5598fa06
   layers:
   - Default
   - TransparentFX
@@ -31,9 +37,9 @@ TagManager:
   - PostProcessing
   - P1View
   - P2View
-  - 
-  - 
-  - 
+  - Corner
+  - Foam
+  - HitCollider
   - 
   - 
   - 

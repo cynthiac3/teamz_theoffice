@@ -19,6 +19,7 @@ public class Foam : MonoBehaviour {
         if (other.tag.Equals("Fire"))    // If touched by foam, extinguish
         {
             Debug.Log("Collision foam and fire.");
+            transform.parent.GetComponent<Player1Controller>().fixHealth();
             Destroy(other.gameObject);
         }
     }

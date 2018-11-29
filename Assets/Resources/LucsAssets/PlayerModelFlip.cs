@@ -11,6 +11,7 @@ public class PlayerModelFlip : MonoBehaviour {
     Quaternion targetRotation;
     public AudioSource step1;
     public AudioSource step2;
+    
 
     // Use this for initialization
     void Start () {
@@ -86,12 +87,15 @@ public class PlayerModelFlip : MonoBehaviour {
 
     }
 
-    void Footstep()
+    public void Footstep()
     {
-        if (Random.Range(0, 2) == 0)
-            step1.Play();
-        else
-            step2.Play();
+        if (!Player1Controller.gameEnded)
+        {
+            if (Random.Range(0, 2) == 0)
+                step1.Play();
+            else
+                step2.Play();
+        }
     }
 
 }

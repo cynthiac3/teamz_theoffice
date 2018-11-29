@@ -15,5 +15,13 @@ public class MenuManager : MonoBehaviour {
         Application.Quit();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            SceneManager.LoadScene(1);
+        }
+    }
+
 
 }

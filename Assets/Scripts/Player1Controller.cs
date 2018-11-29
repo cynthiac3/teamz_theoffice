@@ -112,7 +112,6 @@ public class Player1Controller : MonoBehaviour
         gameStart = true;
     }
 
-
     private void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
@@ -205,7 +204,7 @@ public class Player1Controller : MonoBehaviour
             }
 
             // Moving to rooftop
-            if (isUsingRoofTopDoor)
+            if (isUsingRoofTopDoor && hasKey == true)
             {
 
                 if (Mathf.Abs(mRigidbody.position.y - roofPosition.y) > 0.1)
@@ -313,6 +312,47 @@ public class Player1Controller : MonoBehaviour
             heldVers = obj.versionIndex;
             //Debug.Log("Picked up item " + heldVers);
             obj.destroyItem();
+        }
+
+        if (other.tag.Equals("Key"))
+        {
+            Debug.Log("Key picked up");
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+
+            hasKey = true;
+            obj.destroyItem();
+            obj.destroyCircle();
+
+            //Destroy(other.gameObject);
+        }
+
+        if (other.tag.Equals("MedKit"))
+        {
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+            Heal();
+            Debug.Log("Picked up healing");
+            Destroy(other.gameObject);
+            obj.destroyCircle();
+        }
+
+        if (other.tag.Equals("Donut"))
+        {
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+
+            Debug.Log("Speed Boost");
+            if (other.tag.Equals("Player"))
+            {
+                Debug.Log("Boost P1");
+                StartCoroutine(P1Boost());
+
+            }
+            else
+            {
+                Debug.Log("Boost P2");
+                StartCoroutine(P1Boost());
+            }
+            obj.destroyCircle();
+            Destroy(other.gameObject);
         }
 
         //collision to allow interaction with a fire alarm
@@ -746,8 +786,44 @@ public class Player1Controller : MonoBehaviour
         changeFLoorBy(-currentFloor + 1);
     }
 
-    void Die()
+    public void Heal()
     {
+        if(playerNum == 1 && health < 100)
+        {
+            Debug.Log("Player 1 healed");
+            health = 100;
+            healthBar.UpdateBar(health, 100);
+            
+        }
+        if (playerNum == 2 && health2 < 100)
+        {
+            Debug.Log("Player 2 healed");
+            health2 = 100;
+            healthBar.UpdateBar(health2, 100);
+
+
+        }
+
+    }
+
+    public IEnumerator P1Boost()
+    {
+        yield return new WaitForSeconds(3);
+        velocity *= (float) 1.5;
+        yield return new WaitForSeconds(5);
+
+    }
+
+    public IEnumerator P2Boost()
+    {
+        yield return new WaitForSeconds(3);
+        velocity *= (float) 1.5;
+        yield return new WaitForSeconds(5);
+
+    }
+
+    void Die() {
+
         hasKey = false; // TODO: FIX WITH NATHAN'S CODE
         // Drop extinguisher if holding one
         if (transform.GetChild(1).gameObject.active)

@@ -15,8 +15,11 @@ public class DestroyOnPickup : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Key")) {
+       
+        if (other.CompareTag("Donut"))
+        {
             return;
+
         }
         Destroy(gameObject);
     }

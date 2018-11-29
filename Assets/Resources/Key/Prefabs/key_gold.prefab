@@ -27,11 +27,11 @@ GameObject:
   - component: {fileID: 462124}
   - component: {fileID: 54474045383966880}
   - component: {fileID: 114548879797438748}
-  - component: {fileID: 114394156190459986}
   - component: {fileID: 65793889753523220}
+  - component: {fileID: 114446137834264548}
   m_Layer: 0
   m_Name: key_gold
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,8 +55,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170560}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.7962236, y: 4.032706, z: 2}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 431008}
@@ -143,7 +143,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 6.452782, z: 14.65068}
   m_Center: {x: 0, y: 3.299059, z: 0.8318758}
---- !u!114 &114394156190459986
+--- !u!114 &114446137834264548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,9 +151,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 170560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 813324233c65b1944b6ac2fcea3664a5, type: 3}
+  m_Script: {fileID: 11500000, guid: ae5ed7cada1bd6146817c780dde81272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torqueDir: {x: 0, y: 1, z: 0}
+  pickupInd: {fileID: 1756274156938526, guid: 37c7ac0c54e545f4da08e0ade025d642, type: 2}
+  versionIndex: 0
 --- !u!114 &114548879797438748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,4 +168,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee138fa84c4b614b93d8993c440be7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 20
+  lifetime: 25

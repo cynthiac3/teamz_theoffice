@@ -59,7 +59,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=false;
+    bool hasKey=true;
 
 
     // Healthbar
@@ -269,7 +269,7 @@ public class Player1Controller : MonoBehaviour
         if(crumbling)
         {
             Transform buildingTransf = GameObject.Find("Building").GetComponent<Transform>();
-            buildingTransf.position += new Vector3(Mathf.Sin(Time.time * 40.0f) * 0.1f, -0.003f, Mathf.Sin(Time.time * 40.0f) * 0.1f);
+            buildingTransf.position += new Vector3(Mathf.Sin(Time.time * 40.0f) * 0.1f, -0.04f, Mathf.Sin(Time.time * 40.0f) * 0.1f);
         }
     }
 
@@ -351,9 +351,16 @@ public class Player1Controller : MonoBehaviour
     public IEnumerator Ending()
     {
         Camera cineCam = GameObject.Find("cutSceneCam").GetComponent<Camera>();
-            cineCam.enabled = true;
+        cineCam.enabled = true;
         Rigidbody heliRb = GameObject.Find("Helicopter").GetComponent<Rigidbody>();
         heliRb.velocity = new Vector3(0, 1.0f, 0);
+
+        //destroying all indicators and sprinklers
+        GameObject[] erasedIndicators = GameObject.FindGameObjectsWithTag("indicatorCircle");
+        for(int i = 0; i < erasedIndicators.Length; i++)
+        {
+            Destroy(erasedIndicators[i]);
+        }
 
         Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
         camBody.velocity = new Vector3(-1, 2, -0.5f);

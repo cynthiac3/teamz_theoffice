@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 199359238859622326}
   m_Layer: 0
   m_Name: UsableIndicatorRed
-  m_TagString: Untagged
+  m_TagString: indicatorCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199675401335116536}
   m_Layer: 0
   m_Name: PickUpIndicator
-  m_TagString: Untagged
+  m_TagString: indicatorCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

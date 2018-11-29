@@ -18,6 +18,8 @@ TagManager:
   - Projectile
   - ElecHazard
   - melee
+  - cutscene
+  - indicatorCircle
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ TagManager:
   - Projectile
   - ElecHazard
   - Donut
+  - MedKit
   layers:
   - Default
   - TransparentFX

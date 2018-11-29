@@ -21,7 +21,7 @@ public class Donuts : MonoBehaviour {
         GameObject p2 = GameObject.Find("Player2");
         p2Script = p2.GetComponent<Player1Controller>();
     }
-    
+    /*
     //CoRoutines for each player to stay slowed for 10 seconds
     
     public IEnumerator BoostP1()
@@ -50,7 +50,7 @@ public class Donuts : MonoBehaviour {
             StartCoroutine(BoostP2());
         }
 
-    }
+    }*/
 
     void donutSpawn()
     {

@@ -250,16 +250,35 @@ public class Player1Controller : MonoBehaviour
         if (other.tag.Equals("Key"))
         {
             Debug.Log("Key picked up");
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+
             hasKey = true;
-            Destroy(other.gameObject);
+            obj.destroyItem();
+            //Destroy(other.gameObject);
         }
-        
+
+        if (other.tag.Equals("MedKit"))
+        {
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+            Heal();
+            Debug.Log("Picked up healing");
+            Destroy(other.gameObject);            
+        }
+
         if (other.tag.Equals("Donut"))
         {
             Debug.Log("Speed Boost");
-            StartCoroutine("BoostP1");
-            StartCoroutine("BoostP2");
+            if (other.tag.Equals("Player"))
+            {
+                Debug.Log("Boost P1");
+                StartCoroutine(P1Boost());
 
+            }
+            else
+            {
+                Debug.Log("Boost P2");
+                StartCoroutine(P1Boost());
+            }
 
             Destroy(other.gameObject);
         }
@@ -522,6 +541,44 @@ public class Player1Controller : MonoBehaviour
     private void respawn()
     {
         changeFLoorBy(-currentFloor + 2);
+    }
+
+    public void Heal()
+    {
+        if(playerNum != 1 && health < 100)
+        {
+            Debug.Log("Player 1 healed");
+            health = 100;
+            
+        }
+        if (playerNum == 1 && health < 100)
+        {
+            Debug.Log("Player 2 healed");
+            health = 100;
+            
+        }
+        else
+        {
+            Debug.Log("Player is at full health");
+            return;
+        }
+
+    }
+
+    public IEnumerator P1Boost()
+    {
+        yield return new WaitForSeconds(3);
+        velocity *= 2;
+        yield return new WaitForSeconds(5);
+
+    }
+
+    public IEnumerator P2Boost()
+    {
+        yield return new WaitForSeconds(3);
+        velocity *= 2;
+        yield return new WaitForSeconds(5);
+
     }
 
     void Die() {

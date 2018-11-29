@@ -594,6 +594,7 @@ public class Player1Controller : MonoBehaviour
 
             newFLoor = oldFloor - randomChangeFloor;
             print("down " + randomChangeFloor + " floor");
+           
         }
         else{
             Player1Controller otherPlayer;
@@ -613,8 +614,45 @@ public class Player1Controller : MonoBehaviour
             print("oponent floor");
         }
 
+        showNumber(newFLoor - oldFloor);
+        Invoke("removeNumber", 2);
         GameManager.elevators[newFLoor-1].gameObject.GetComponent<Light>().color = Color.red;
         GameManager.e[newFLoor-1].state = GameManager.Elevator.State.CLOSED;
+    }
+
+    private void showNumber(int diff)
+    {
+        GameObject panel;
+        if(playerNum == 1)
+        {
+            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+        }
+        else
+        {
+            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+        }
+
+        GameObject movement = panel.transform.FindChild("elevatorMovement").gameObject;
+        movement.SetActive(true);
+        if (diff > 0)
+            movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        else
+            movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+        movement.transform.GetChild(0).transform.GetComponent<Text>().text = Mathf.Abs(diff).ToString();
+    }
+
+    private void removeNumber()
+    {
+        GameObject panel;
+        if (playerNum == 1)
+        {
+            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+        }
+        else
+        {
+            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+        }
+        panel.transform.FindChild("elevatorMovement").gameObject.SetActive(false);
     }
 
     private int getRandomChangeFloor(){

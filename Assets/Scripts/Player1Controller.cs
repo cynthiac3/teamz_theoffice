@@ -625,14 +625,14 @@ public class Player1Controller : MonoBehaviour
         GameObject panel;
         if(playerNum == 1)
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
         }
         else
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
         }
 
-        GameObject movement = panel.transform.FindChild("elevatorMovement").gameObject;
+        GameObject movement = panel.transform.Find("elevatorMovement").gameObject;
         movement.SetActive(true);
         if (diff > 0)
             movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -646,13 +646,13 @@ public class Player1Controller : MonoBehaviour
         GameObject panel;
         if (playerNum == 1)
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
         }
         else
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
         }
-        panel.transform.FindChild("elevatorMovement").gameObject.SetActive(false);
+        panel.transform.Find("elevatorMovement").gameObject.SetActive(false);
     }
 
     private int getRandomChangeFloor(){

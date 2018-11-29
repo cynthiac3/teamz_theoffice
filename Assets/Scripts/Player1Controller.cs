@@ -421,6 +421,19 @@ public class Player1Controller : MonoBehaviour
         {
             Destroy(erasedIndicators[i]);
         }
+        //destroying all keys  
+        GameObject[] keyIndicators = GameObject.FindGameObjectsWithTag("Key");
+        for (int i = 0; i < keyIndicators.Length; i++)
+        {
+            Destroy(keyIndicators[i]);
+        }
+        //destroying all medkits  
+        GameObject[] medIndicators = GameObject.FindGameObjectsWithTag("MedKit");
+        for (int i = 0; i < medIndicators.Length; i++)
+        {
+            Destroy(medIndicators[i]);
+        }
+
 
         Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
         camBody.velocity = new Vector3(-1, 2, -0.5f);

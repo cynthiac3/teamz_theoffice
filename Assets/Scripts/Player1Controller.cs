@@ -435,6 +435,13 @@ public class Player1Controller : MonoBehaviour
             Destroy(medIndicators[i]);
         }
 
+        GameObject[] donutIndicators = GameObject.FindGameObjectsWithTag("Donut");
+        for (int i = 0; i < donutIndicators.Length; i++)
+        {
+            Destroy(donutIndicators[i]);
+        }
+
+
 
         Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
         camBody.velocity = new Vector3(-1, 2, -0.5f);

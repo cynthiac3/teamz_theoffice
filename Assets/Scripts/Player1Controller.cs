@@ -59,7 +59,7 @@ public class Player1Controller : MonoBehaviour
     bool isUsingRoofTopDoor;
     private bool atRooftopDoor;
     private Vector3 roofPosition = new Vector3(6.0f,19.0f,1.0f);
-    bool hasKey=true;
+    bool hasKey=false;
 
 
     // Healthbar
@@ -250,6 +250,7 @@ public class Player1Controller : MonoBehaviour
                     Rigidbody thrownBody = thrown.GetComponent<Rigidbody>();
                     thrownBody.velocity = -transform.forward * 25;
                 }
+                PlayerHasItem(false);
             }
             else if (Input.GetButtonDown("Throw" + playerNum) && !holding)
             {
@@ -421,6 +422,19 @@ public class Player1Controller : MonoBehaviour
         {
             Destroy(erasedIndicators[i]);
         }
+        //destroying all keys  
+        GameObject[] keyIndicators = GameObject.FindGameObjectsWithTag("Key");
+        for (int i = 0; i < keyIndicators.Length; i++)
+        {
+            Destroy(keyIndicators[i]);
+        }
+        //destroying all medkits  
+        GameObject[] medIndicators = GameObject.FindGameObjectsWithTag("MedKit");
+        for (int i = 0; i < medIndicators.Length; i++)
+        {
+            Destroy(medIndicators[i]);
+        }
+
 
         Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
         camBody.velocity = new Vector3(-1, 2, -0.5f);
@@ -827,9 +841,11 @@ public class Player1Controller : MonoBehaviour
 
     public IEnumerator P1Boost()
     {
+        float originalVelocity = velocity;
         yield return new WaitForSeconds(3);
         velocity *= (float) 1.5;
         yield return new WaitForSeconds(5);
+        velocity = originalVelocity;
 
     }
 

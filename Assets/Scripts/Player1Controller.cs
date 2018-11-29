@@ -478,6 +478,7 @@ public class Player1Controller : MonoBehaviour
         string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
         text = text.Replace("0", playerNum.ToString());
         endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+        sounds[1].Play();
 
         Invoke("loadScene", 5.0f);
     }

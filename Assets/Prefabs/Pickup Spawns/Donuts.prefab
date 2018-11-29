@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23917732724646556}
   - component: {fileID: 54568900028343858}
   - component: {fileID: 114914729763717240}
-  - component: {fileID: 114539687749289878}
-  - component: {fileID: 135531249320595884}
+  - component: {fileID: 65913914026258472}
+  - component: {fileID: 114404041832799468}
   m_Layer: 0
   m_Name: Donuts
   m_TagString: Donut
@@ -102,7 +102,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114539687749289878
+--- !u!65 &65913914026258472
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1659009600211366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24015893, y: 0.22004955, z: 0.19081734}
+  m_Center: {x: 0, y: 0.11002476, z: -0.000000022351742}
+--- !u!114 &114404041832799468
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,9 +122,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1659009600211366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 813324233c65b1944b6ac2fcea3664a5, type: 3}
+  m_Script: {fileID: 11500000, guid: ae5ed7cada1bd6146817c780dde81272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torqueDir: {x: 0, y: 1, z: 0}
+  pickupInd: {fileID: 1756274156938526, guid: 37c7ac0c54e545f4da08e0ade025d642, type: 2}
+  versionIndex: 0
 --- !u!114 &114914729763717240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,15 +140,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
---- !u!135 &135531249320595884
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1659009600211366}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.120079465
-  m_Center: {x: 0, y: 0.11002476, z: -0.000000022351742}

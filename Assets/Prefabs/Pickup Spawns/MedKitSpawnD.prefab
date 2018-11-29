@@ -19,12 +19,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4097356490853420}
-  - component: {fileID: 54428409595096218}
-  - component: {fileID: 135190029108431306}
   - component: {fileID: 114199530445998886}
   m_Layer: 0
   m_Name: MedKitSpawnD
-  m_TagString: MedKit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1015746838037312}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 4.5, y: 7.5, z: -3.3}
+  m_LocalPosition: {x: 4.5, y: 7.5, z: -2}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4159747558858378}
@@ -115,21 +113,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1675525259602538}
   m_Mesh: {fileID: 4300000, guid: f7a11247f2d78284c9d94863ccb5ce7d, type: 3}
---- !u!54 &54428409595096218
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1015746838037312}
-  serializedVersion: 2
-  m_Mass: 0.0001
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &114199530445998886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,17 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueDir: {x: 0, y: 0, z: 1}
-  pickupInd: {fileID: 1169827228596926, guid: 9c34cf3cd93cca84ea1d8e3be0284a72, type: 2}
+  pickupInd: {fileID: 1756274156938526, guid: 37c7ac0c54e545f4da08e0ade025d642, type: 2}
   versionIndex: 0
---- !u!135 &135190029108431306
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1015746838037312}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.5
-  m_Center: {x: 0, y: 0, z: 0}

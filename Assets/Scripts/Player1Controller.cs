@@ -321,6 +321,8 @@ public class Player1Controller : MonoBehaviour
 
             hasKey = true;
             obj.destroyItem();
+            obj.destroyCircle();
+
             //Destroy(other.gameObject);
         }
 
@@ -329,11 +331,14 @@ public class Player1Controller : MonoBehaviour
             PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
             Heal();
             Debug.Log("Picked up healing");
-            Destroy(other.gameObject);            
+            Destroy(other.gameObject);
+            obj.destroyCircle();
         }
 
         if (other.tag.Equals("Donut"))
         {
+            PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
+
             Debug.Log("Speed Boost");
             if (other.tag.Equals("Player"))
             {
@@ -346,7 +351,7 @@ public class Player1Controller : MonoBehaviour
                 Debug.Log("Boost P2");
                 StartCoroutine(P1Boost());
             }
-
+            obj.destroyCircle();
             Destroy(other.gameObject);
         }
 
@@ -781,25 +786,22 @@ public class Player1Controller : MonoBehaviour
         changeFLoorBy(-currentFloor + 1);
     }
 
-<<<<<<< HEAD
     public void Heal()
     {
-        if(playerNum != 1 && health < 100)
+        if(playerNum == 1 && health < 100)
         {
             Debug.Log("Player 1 healed");
             health = 100;
+            healthBar.UpdateBar(health, 100);
             
         }
-        if (playerNum == 1 && health < 100)
+        if (playerNum == 2 && health2 < 100)
         {
             Debug.Log("Player 2 healed");
-            health = 100;
-            
-        }
-        else
-        {
-            Debug.Log("Player is at full health");
-            return;
+            health2 = 100;
+            healthBar.UpdateBar(health2, 100);
+
+
         }
 
     }
@@ -807,7 +809,7 @@ public class Player1Controller : MonoBehaviour
     public IEnumerator P1Boost()
     {
         yield return new WaitForSeconds(3);
-        velocity *= 2;
+        velocity *= (float) 1.5;
         yield return new WaitForSeconds(5);
 
     }
@@ -815,17 +817,13 @@ public class Player1Controller : MonoBehaviour
     public IEnumerator P2Boost()
     {
         yield return new WaitForSeconds(3);
-        velocity *= 2;
+        velocity *= (float) 1.5;
         yield return new WaitForSeconds(5);
 
     }
 
     void Die() {
-       
-=======
-    void Die()
-    {
->>>>>>> 86dbe71bd05b0390cf9b3c886682135e5598fa06
+
         hasKey = false; // TODO: FIX WITH NATHAN'S CODE
         // Drop extinguisher if holding one
         if (transform.GetChild(1).gameObject.active)

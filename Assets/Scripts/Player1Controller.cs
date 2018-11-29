@@ -78,6 +78,12 @@ public class Player1Controller : MonoBehaviour
     //end Canvas
     public GameObject endCanvas;
 
+    //for Cutscene;
+    public GameObject exterior;
+    public GameObject smoke;
+    public GameObject[] explosions;
+    private bool crumbling;
+
     // For extinguisher
     public GameObject extinguisherPrefab;
     // For respawning
@@ -260,7 +266,11 @@ public class Player1Controller : MonoBehaviour
             }
             //  Input.GetKey(KeyCode.I)
         }
-
+        if(crumbling)
+        {
+            Transform buildingTransf = GameObject.Find("Building").GetComponent<Transform>();
+            buildingTransf.position += new Vector3(Mathf.Sin(Time.time * 40.0f) * 0.1f, -0.003f, Mathf.Sin(Time.time * 40.0f) * 0.1f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -328,22 +338,62 @@ public class Player1Controller : MonoBehaviour
             cameras[0].enabled = false;
             cameras[1].enabled = false;
             cameras[2].enabled = false;
-            GameObject.Find("cutSceneCam").GetComponent<Camera>().enabled = true;
-            GameObject.Find("Helicopter").GetComponent<Rigidbody>().velocity = new Vector3(0, 2.0f, 0);
+            
             showPlayer(false); 
             GameObject.Find("Canvas").SetActive(false);
-            GameObject.Find("cutSceneCam").GetComponent<Rigidbody>().velocity = new Vector3(-1, 3, -1);
-
-            endCanvas.gameObject.SetActive(true);
-            string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
-            text = text.Replace("0", playerNum.ToString());
-            endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
-
-            Invoke("loadScene", 5.0f);
-
+            Instantiate(exterior, GameObject.Find("Building").GetComponent<Transform>());
+            Instantiate(smoke, GameObject.Find("Building").GetComponent<Transform>());
+            StartCoroutine(Ending());
         }
        
     }
+
+    public IEnumerator Ending()
+    {
+        Camera cineCam = GameObject.Find("cutSceneCam").GetComponent<Camera>();
+            cineCam.enabled = true;
+        Rigidbody heliRb = GameObject.Find("Helicopter").GetComponent<Rigidbody>();
+        heliRb.velocity = new Vector3(0, 1.0f, 0);
+
+        Rigidbody camBody = cineCam.GetComponent<Rigidbody>();
+        camBody.velocity = new Vector3(-1, 2, -0.5f);
+
+        yield return new WaitForSeconds(3);
+        //heliRb = GameObject.Find("Helicopter").GetComponent<Rigidbody>();
+        heliRb.velocity += new Vector3(5, 0, 0);
+
+        //tilting the helicopter (without using Update function)
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("Helicopter").GetComponent<Transform>().Rotate(1.0f, 0, 0);
+
+        yield return new WaitForSeconds(3);
+        camBody.velocity += new Vector3(0, -1, 2);
+        camBody.transform.position += new Vector3(-12, -10, 2);
+        camBody.transform.LookAt(GameObject.Find("Building").GetComponent<Transform>(), transform.up);
+        Instantiate(explosions[0], GameObject.Find("Building").GetComponent<Transform>());
+        yield return new WaitForSeconds(2);
+        crumbling = true;
+        Instantiate(explosions[1], GameObject.Find("Building").GetComponent<Transform>());
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(explosions[2], GameObject.Find("Building").GetComponent<Transform>());
+        endCanvas.gameObject.SetActive(true);
+        string text = endCanvas.transform.Find("Text").GetComponent<Text>().text;
+        text = text.Replace("0", playerNum.ToString());
+        endCanvas.transform.Find("Text").GetComponent<Text>().text = text;
+
+        Invoke("loadScene", 5.0f);
+    }
+
 
     void loadScene()
     {
@@ -625,14 +675,14 @@ public class Player1Controller : MonoBehaviour
         GameObject panel;
         if(playerNum == 1)
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
         }
         else
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
         }
 
-        GameObject movement = panel.transform.FindChild("elevatorMovement").gameObject;
+        GameObject movement = panel.transform.Find("elevatorMovement").gameObject;
         movement.SetActive(true);
         if (diff > 0)
             movement.transform.GetChild(1).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -646,13 +696,13 @@ public class Player1Controller : MonoBehaviour
         GameObject panel;
         if (playerNum == 1)
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("TopPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("TopPanel").gameObject;
         }
         else
         {
-            panel = GameObject.Find("Canvas").transform.FindChild("BottomPanel").gameObject;
+            panel = GameObject.Find("Canvas").transform.Find("BottomPanel").gameObject;
         }
-        panel.transform.FindChild("elevatorMovement").gameObject.SetActive(false);
+        panel.transform.Find("elevatorMovement").gameObject.SetActive(false);
     }
 
     private int getRandomChangeFloor(){

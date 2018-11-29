@@ -59,7 +59,7 @@ public class Sprinklers : MonoBehaviour {
                 }
             }
             //if statement for Prefab sprinkler sets
-            else if (p2Lvl > 2 && p2Lvl < 10)
+            else if (p2Lvl > 2 && p2Lvl < 11)
             {
                 p2Script.velocity = p2Script.velocity / 4;
                 StartCoroutine(SoakP2());
@@ -114,7 +114,7 @@ public class Sprinklers : MonoBehaviour {
                 }
             }
             //if statement for Prefab sprinkler sets
-            else if (p1Lvl > 2 && p1Lvl < 10)
+            else if (p1Lvl > 2 && p1Lvl < 11)
             {
                 p1Script.velocity = p1Script.velocity / 4;
                 StartCoroutine(SoakP1());

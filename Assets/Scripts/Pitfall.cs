@@ -21,7 +21,7 @@ public class Pitfall : MonoBehaviour {
 
         if (destructable && other.tag == "Player")
         {
-            Vector3 offset = new Vector3(0, 3.5f, 0);
+            Vector3 offset = new Vector3(0, 3.0f, 0);
             GameObject parent = transform.parent.gameObject;
             Destroy(parent);
             Instantiate(debris, parent.transform.position + offset, parent.transform.rotation);

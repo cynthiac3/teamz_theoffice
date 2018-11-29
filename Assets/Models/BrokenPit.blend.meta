@@ -34,6 +34,33 @@ ModelImporter:
     100056: PitPiece_cell_031
     100058: PitPiece_cell_032
     100060: PitPiece_cell_033
+    100062: PCover1
+    100064: PCover1_cell
+    100066: PCover1_cell_001
+    100068: PCover1_cell_002
+    100070: PCover1_cell_003
+    100072: PCover1_cell_004
+    100074: PCover1_cell_005
+    100076: PCover1_cell_006
+    100078: PCover1_cell_007
+    100080: PCover1_cell_008
+    100082: PCover1_cell_009
+    100084: PCover1_cell_010
+    100086: PCover1_cell_011
+    100088: PCover1_cell_012
+    100090: PCover1_cell_013
+    100092: PCover1_cell_014
+    100094: PCover1_cell_015
+    100096: PCover1_cell_016
+    100098: PCover1_cell_017
+    100100: PCover1_cell_018
+    100102: PCover1_cell_019
+    100104: PCover1_cell_020
+    100106: PCover1_cell_021
+    100108: PCover1_cell_022
+    100110: PCover1_cell_023
+    100112: PCover1_cell_024
+    100114: PCover1_cell_025
     400000: //RootNode
     400002: PitPiece_cell
     400004: PitPiece_cell_001
@@ -65,6 +92,33 @@ ModelImporter:
     400056: PitPiece_cell_031
     400058: PitPiece_cell_032
     400060: PitPiece_cell_033
+    400062: PCover1
+    400064: PCover1_cell
+    400066: PCover1_cell_001
+    400068: PCover1_cell_002
+    400070: PCover1_cell_003
+    400072: PCover1_cell_004
+    400074: PCover1_cell_005
+    400076: PCover1_cell_006
+    400078: PCover1_cell_007
+    400080: PCover1_cell_008
+    400082: PCover1_cell_009
+    400084: PCover1_cell_010
+    400086: PCover1_cell_011
+    400088: PCover1_cell_012
+    400090: PCover1_cell_013
+    400092: PCover1_cell_014
+    400094: PCover1_cell_015
+    400096: PCover1_cell_016
+    400098: PCover1_cell_017
+    400100: PCover1_cell_018
+    400102: PCover1_cell_019
+    400104: PCover1_cell_020
+    400106: PCover1_cell_021
+    400108: PCover1_cell_022
+    400110: PCover1_cell_023
+    400112: PCover1_cell_024
+    400114: PCover1_cell_025
     2100000: unnamed
     2300000: PitPiece_cell
     2300002: PitPiece_cell_001
@@ -96,6 +150,33 @@ ModelImporter:
     2300054: PitPiece_cell_031
     2300056: PitPiece_cell_032
     2300058: PitPiece_cell_033
+    2300060: PCover1
+    2300062: PCover1_cell
+    2300064: PCover1_cell_001
+    2300066: PCover1_cell_002
+    2300068: PCover1_cell_003
+    2300070: PCover1_cell_004
+    2300072: PCover1_cell_005
+    2300074: PCover1_cell_006
+    2300076: PCover1_cell_007
+    2300078: PCover1_cell_008
+    2300080: PCover1_cell_009
+    2300082: PCover1_cell_010
+    2300084: PCover1_cell_011
+    2300086: PCover1_cell_012
+    2300088: PCover1_cell_013
+    2300090: PCover1_cell_014
+    2300092: PCover1_cell_015
+    2300094: PCover1_cell_016
+    2300096: PCover1_cell_017
+    2300098: PCover1_cell_018
+    2300100: PCover1_cell_019
+    2300102: PCover1_cell_020
+    2300104: PCover1_cell_021
+    2300106: PCover1_cell_022
+    2300108: PCover1_cell_023
+    2300110: PCover1_cell_024
+    2300112: PCover1_cell_025
     3300000: PitPiece_cell
     3300002: PitPiece_cell_001
     3300004: PitPiece_cell_002
@@ -126,6 +207,33 @@ ModelImporter:
     3300054: PitPiece_cell_031
     3300056: PitPiece_cell_032
     3300058: PitPiece_cell_033
+    3300060: PCover1
+    3300062: PCover1_cell
+    3300064: PCover1_cell_001
+    3300066: PCover1_cell_002
+    3300068: PCover1_cell_003
+    3300070: PCover1_cell_004
+    3300072: PCover1_cell_005
+    3300074: PCover1_cell_006
+    3300076: PCover1_cell_007
+    3300078: PCover1_cell_008
+    3300080: PCover1_cell_009
+    3300082: PCover1_cell_010
+    3300084: PCover1_cell_011
+    3300086: PCover1_cell_012
+    3300088: PCover1_cell_013
+    3300090: PCover1_cell_014
+    3300092: PCover1_cell_015
+    3300094: PCover1_cell_016
+    3300096: PCover1_cell_017
+    3300098: PCover1_cell_018
+    3300100: PCover1_cell_019
+    3300102: PCover1_cell_020
+    3300104: PCover1_cell_021
+    3300106: PCover1_cell_022
+    3300108: PCover1_cell_023
+    3300110: PCover1_cell_024
+    3300112: PCover1_cell_025
     4300000: PitPiece_cell_033
     4300002: PitPiece_cell_032
     4300004: PitPiece_cell_031
@@ -156,6 +264,33 @@ ModelImporter:
     4300054: PitPiece_cell_002
     4300056: PitPiece_cell_001
     4300058: PitPiece_cell
+    4300060: PCover1_cell_025
+    4300062: PCover1_cell_024
+    4300064: PCover1_cell_023
+    4300066: PCover1_cell_022
+    4300068: PCover1_cell_021
+    4300070: PCover1_cell_020
+    4300072: PCover1_cell_019
+    4300074: PCover1_cell_018
+    4300076: PCover1_cell_017
+    4300078: PCover1_cell_016
+    4300080: PCover1_cell_015
+    4300082: PCover1_cell_014
+    4300084: PCover1_cell_013
+    4300086: PCover1_cell_012
+    4300088: PCover1_cell_011
+    4300090: PCover1_cell_010
+    4300092: PCover1_cell_009
+    4300094: PCover1_cell_008
+    4300096: PCover1_cell_007
+    4300098: PCover1_cell_006
+    4300100: PCover1_cell_005
+    4300102: PCover1_cell_004
+    4300104: PCover1_cell_003
+    4300106: PCover1_cell_002
+    4300108: PCover1_cell_001
+    4300110: PCover1_cell
+    4300112: PCover1
     6400000: PitPiece_cell
     6400002: PitPiece_cell_001
     6400004: PitPiece_cell_002
@@ -186,6 +321,33 @@ ModelImporter:
     6400054: PitPiece_cell_031
     6400056: PitPiece_cell_032
     6400058: PitPiece_cell_033
+    6400060: PCover1
+    6400062: PCover1_cell
+    6400064: PCover1_cell_001
+    6400066: PCover1_cell_002
+    6400068: PCover1_cell_003
+    6400070: PCover1_cell_004
+    6400072: PCover1_cell_005
+    6400074: PCover1_cell_006
+    6400076: PCover1_cell_007
+    6400078: PCover1_cell_008
+    6400080: PCover1_cell_009
+    6400082: PCover1_cell_010
+    6400084: PCover1_cell_011
+    6400086: PCover1_cell_012
+    6400088: PCover1_cell_013
+    6400090: PCover1_cell_014
+    6400092: PCover1_cell_015
+    6400094: PCover1_cell_016
+    6400096: PCover1_cell_017
+    6400098: PCover1_cell_018
+    6400100: PCover1_cell_019
+    6400102: PCover1_cell_020
+    6400104: PCover1_cell_021
+    6400106: PCover1_cell_022
+    6400108: PCover1_cell_023
+    6400110: PCover1_cell_024
+    6400112: PCover1_cell_025
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -261,6 +423,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

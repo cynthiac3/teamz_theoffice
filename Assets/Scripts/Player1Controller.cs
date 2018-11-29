@@ -293,6 +293,7 @@ public class Player1Controller : MonoBehaviour
             {
                 other.gameObject.GetComponent<PickUpObject>().destroyItem();
                 transform.GetChild(1).gameObject.SetActive(true);
+                PlayerHasExtinguisher(true);
             }
         }
     
@@ -312,6 +313,7 @@ public class Player1Controller : MonoBehaviour
             heldVers = obj.versionIndex;
             //Debug.Log("Picked up item " + heldVers);
             obj.destroyItem();
+            PlayerHasItem(true);
         }
 
         if (other.tag.Equals("Key"))
@@ -319,6 +321,7 @@ public class Player1Controller : MonoBehaviour
             Debug.Log("Key picked up");
             PickUpObject obj = other.gameObject.GetComponent<PickUpObject>();
 
+            PlayerHasKey(true);
             hasKey = true;
             obj.destroyItem();
             obj.destroyCircle();
@@ -825,6 +828,10 @@ public class Player1Controller : MonoBehaviour
     void Die() {
 
         hasKey = false; // TODO: FIX WITH NATHAN'S CODE
+        PlayerHasItem(false);
+        PlayerHasKey(false);
+        PlayerHasExtinguisher(false);
+
         // Drop extinguisher if holding one
         if (transform.GetChild(1).gameObject.active)
         {

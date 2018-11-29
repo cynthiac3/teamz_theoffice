@@ -83,6 +83,7 @@ public class Player1Controller : MonoBehaviour
     public GameObject smoke;
     public GameObject[] explosions;
     private bool crumbling;
+    public static bool gameEnded = false;
 
     // For extinguisher
     public GameObject extinguisherPrefab;
@@ -338,8 +339,10 @@ public class Player1Controller : MonoBehaviour
             cameras[0].enabled = false;
             cameras[1].enabled = false;
             cameras[2].enabled = false;
-            
-            showPlayer(false); 
+
+            showPlayer(false);
+            gameEnded = true;
+           
             GameObject.Find("Canvas").SetActive(false);
             Instantiate(exterior, GameObject.Find("Building").GetComponent<Transform>());
             Instantiate(smoke, GameObject.Find("Building").GetComponent<Transform>());

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114123337653337490}
   - component: {fileID: 114941831686881220}
   - component: {fileID: 135931616081965014}
+  - component: {fileID: 114515624316786482}
   m_Layer: 0
   m_Name: Donuts
   m_TagString: Donut
@@ -114,6 +115,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 20
+  currentTime: 0
+--- !u!114 &114515624316786482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123200861338442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5ed7cada1bd6146817c780dde81272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torqueDir: {x: 0, y: 1, z: 0}
+  pickupInd: {fileID: 1756274156938526, guid: 37c7ac0c54e545f4da08e0ade025d642, type: 2}
+  versionIndex: 0
 --- !u!114 &114941831686881220
 MonoBehaviour:
   m_ObjectHideFlags: 1
